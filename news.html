@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Новости — КранРент</title>
+  <meta name="description" content="Новости компании КранРент: обновления парка техники, завершенные проекты, новые услуги.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="top-bar"><div class="container"><div class="top-bar__left"><a href="tel:+375291234567"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> +375 (29) 123-45-67</a><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Пн-Пт: 8:00 - 18:00</span></div><div class="top-bar__right"><a href="mailto:info@cranes.by">info@cranes.by</a></div></div></div>
+
+<header class="header"><div class="container"><a href="index.html" class="logo"><div class="logo__icon">КР</div><div class="logo__text"><span class="logo__name">КранРент</span><span class="logo__desc">Аренда крановой техники</span></div></a><nav class="nav"><div class="nav__dropdown"><a href="#" class="nav__link nav__link--dropdown">Услуги</a><div class="nav__dropdown-menu"><a href="services/tower-cranes.html">Башенные краны</a><a href="services/mobile-cranes.html">Автомобильные краны</a><a href="services/crawler-cranes.html">Гусеничные краны</a><a href="services/installation.html">Монтаж и проектирование</a></div></div><a href="news.html" class="nav__link">Новости</a><a href="about.html" class="nav__link">О компании</a><a href="contacts.html" class="nav__link">Контакты</a></nav><a href="contacts.html" class="btn btn--primary header__cta">Рассчитать стоимость</a><button class="burger" id="burgerBtn" aria-label="Меню"><span></span><span></span><span></span></button></div></header>
+
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="mobile-nav" id="mobileNav"><button class="mobile-nav__close" id="mobileClose">&times;</button><a href="index.html" class="mobile-nav__link">Главная</a><span class="mobile-nav__link">Услуги</span><div class="mobile-nav__sub"><a href="services/tower-cranes.html">Башенные краны</a><a href="services/mobile-cranes.html">Автомобильные краны</a><a href="services/crawler-cranes.html">Гусеничные краны</a><a href="services/installation.html">Монтаж и проектирование</a></div><a href="news.html" class="mobile-nav__link">Новости</a><a href="about.html" class="mobile-nav__link">О компании</a><a href="contacts.html" class="mobile-nav__link">Контакты</a><br><a href="contacts.html" class="btn btn--primary btn--full">Рассчитать стоимость</a></div>
+
+<div class="breadcrumbs"><div class="container"><a href="index.html">Главная</a><span>&gt;</span>Новости</div></div>
+
+<section class="section">
+  <div class="container">
+    <h1 class="section-title" style="font-size:38px;margin-bottom:48px;">Новости</h1>
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-card__img"></div>
+        <div class="news-card__body">
+          <div class="news-card__meta"><span>15 февраля 2026</span><span class="news-card__tag">Новости</span><span class="news-card__tag">Техника</span></div>
+          <h3 class="news-card__title">Пополнение парка: новые башенные краны</h3>
+          <p class="news-card__text">Мы расширили наш парк современными башенными кранами европейского производства с грузоподъемностью до 12 тонн.</p>
+          <a href="#" class="news-card__link">Читать далее &rarr;</a>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card__img"></div>
+        <div class="news-card__body">
+          <div class="news-card__meta"><span>8 февраля 2026</span><span class="news-card__tag">Проекты</span></div>
+          <h3 class="news-card__title">Успешно завершен крупный проект</h3>
+          <p class="news-card__text">Наша команда завершила монтажные работы на объекте жилого комплекса "Минск Мир" с применением башенных и автомобильных кранов.</p>
+          <a href="#" class="news-card__link">Читать далее &rarr;</a>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card__img"></div>
+        <div class="news-card__body">
+          <div class="news-card__meta"><span>1 февраля 2026</span><span class="news-card__tag">Услуги</span></div>
+          <h3 class="news-card__title">Новые услуги: проектирование ППР</h3>
+          <p class="news-card__text">Теперь мы предлагаем полный комплекс услуг по разработке проектов производства работ и схем строповки.</p>
+          <a href="#" class="news-card__link">Читать далее &rarr;</a>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card__img"></div>
+        <div class="news-card__body">
+          <div class="news-card__meta"><span>20 января 2026</span><span class="news-card__tag">Компания</span></div>
+          <h3 class="news-card__title">Обновление сертификатов безопасности</h3>
+          <p class="news-card__text">Все единицы нашей техники успешно прошли ежегодную техническую проверку и получили обновленные сертификаты.</p>
+          <a href="#" class="news-card__link">Читать далее &rarr;</a>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card__img"></div>
+        <div class="news-card__body">
+          <div class="news-card__meta"><span>10 января 2026</span><span class="news-card__tag">Проекты</span></div>
+          <h3 class="news-card__title">Начало работ на промышленном объекте</h3>
+          <p class="news-card__text">Приступили к монтажным работам на новом промышленном объекте с использованием гусеничного крана СКГ-160.</p>
+          <a href="#" class="news-card__link">Читать далее &rarr;</a>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card__img"></div>
+        <div class="news-card__body">
+          <div class="news-card__meta"><span>25 декабря 2025</span><span class="news-card__tag">Компания</span></div>
+          <h3 class="news-card__title">Итоги 2025 года</h3>
+          <p class="news-card__text">Подводим итоги уходящего года: более 50 успешно реализованных проектов, расширение парка техники и новые партнеры.</p>
+          <a href="#" class="news-card__link">Читать далее &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div><div class="footer__logo"><a href="index.html" class="logo"><div class="logo__icon">КР</div><div class="logo__text"><span class="logo__name" style="color:#fff">КранРент</span></div></a></div><p class="footer__desc">Аренда крановой техники и инженерные услуги в Минске и по всей Беларуси</p></div><div><h4 class="footer__heading">Услуги</h4><ul class="footer__links"><li><a href="services/tower-cranes.html">Башенные краны</a></li><li><a href="services/mobile-cranes.html">Автомобильные краны</a></li><li><a href="services/crawler-cranes.html">Гусеничные краны</a></li><li><a href="services/installation.html">Монтаж и проектирование</a></li></ul></div><div><h4 class="footer__heading">Навигация</h4><ul class="footer__links"><li><a href="about.html">О компании</a></li><li><a href="news.html">Новости</a></li><li><a href="contacts.html">Контакты</a></li></ul></div><div><h4 class="footer__heading">Контакты</h4><div class="footer__contact-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> +375 (29) 123-45-67</div><div class="footer__contact-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> info@cranes.by</div><div class="footer__contact-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> г. Минск, ул. Промышленная, 15</div></div></div><div class="footer-bottom"><span>&copy; 2026 КранРент. Все права защищены.</span><a href="#">Политика конфиденциальности</a></div></div></footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

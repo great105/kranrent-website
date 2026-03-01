@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>КранРент — Аренда крановой техники в Минске и Беларуси</title>
+  <meta name="description" content="Аренда башенных, автомобильных и гусеничных кранов в Минске. Грузоподъемность от 16 до 200 тонн. Опытные операторы, полный пакет документов.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="container">
+    <div class="top-bar__left">
+      <a href="tel:+375291234567">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        +375 (29) 123-45-67
+      </a>
+      <span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Пн-Пт: 8:00 - 18:00
+      </span>
+    </div>
+    <div class="top-bar__right">
+      <a href="mailto:info@cranes.by">info@cranes.by</a>
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="container">
+    <a href="index.html" class="logo">
+      <div class="logo__icon">КР</div>
+      <div class="logo__text">
+        <span class="logo__name">КранРент</span>
+        <span class="logo__desc">Аренда крановой техники</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <div class="nav__dropdown">
+        <a href="#" class="nav__link nav__link--dropdown">Услуги</a>
+        <div class="nav__dropdown-menu">
+          <a href="services/tower-cranes.html">Башенные краны</a>
+          <a href="services/mobile-cranes.html">Автомобильные краны</a>
+          <a href="services/crawler-cranes.html">Гусеничные краны</a>
+          <a href="services/installation.html">Монтаж и проектирование</a>
+        </div>
+      </div>
+      <a href="news.html" class="nav__link">Новости</a>
+      <a href="about.html" class="nav__link">О компании</a>
+      <a href="contacts.html" class="nav__link">Контакты</a>
+    </nav>
+    <a href="contacts.html" class="btn btn--primary header__cta">Рассчитать стоимость</a>
+    <button class="burger" id="burgerBtn" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav__close" id="mobileClose">&times;</button>
+  <a href="index.html" class="mobile-nav__link">Главная</a>
+  <span class="mobile-nav__link">Услуги</span>
+  <div class="mobile-nav__sub">
+    <a href="services/tower-cranes.html">Башенные краны</a>
+    <a href="services/mobile-cranes.html">Автомобильные краны</a>
+    <a href="services/crawler-cranes.html">Гусеничные краны</a>
+    <a href="services/installation.html">Монтаж и проектирование</a>
+  </div>
+  <a href="news.html" class="mobile-nav__link">Новости</a>
+  <a href="about.html" class="mobile-nav__link">О компании</a>
+  <a href="contacts.html" class="mobile-nav__link">Контакты</a>
+  <br>
+  <a href="contacts.html" class="btn btn--primary btn--full">Рассчитать стоимость</a>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero__content">
+      <h1 class="hero__title">Аренда крановой техники в Минске и Беларуси</h1>
+      <p class="hero__text">Башенные, автомобильные и гусеничные краны грузоподъемностью от 16 до 200 тонн с опытными операторами. Быстрая подача на объект, работа по всей Беларуси.</p>
+      <div class="hero__buttons">
+        <a href="contacts.html" class="btn btn--primary btn--lg">Заказать автокран</a>
+        <a href="contacts.html" class="btn btn--outline-dark btn--lg" style="border-color:rgba(255,255,255,0.4);color:#fff;">Получить консультацию</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section class="section">
+  <div class="container">
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-card__icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="8" fill="#FFF3EB"/><path d="M14 34V18l10-6 10 6v16" stroke="#E8712A" stroke-width="2"/><path d="M20 34v-8h8v8" stroke="#E8712A" stroke-width="2"/></svg>
+        </div>
+        <h3 class="service-card__title">Аренда башенных кранов</h3>
+        <p class="service-card__text">Башенные краны различной грузоподъемности для строительства высотных объектов</p>
+        <a href="services/tower-cranes.html" class="service-card__link">Подробнее &rarr;</a>
+      </div>
+      <div class="service-card">
+        <div class="service-card__icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="8" fill="#FFF3EB"/><rect x="10" y="28" width="28" height="6" rx="2" stroke="#E8712A" stroke-width="2"/><path d="M16 28v-8l8-6 8 6v8" stroke="#E8712A" stroke-width="2"/></svg>
+        </div>
+        <h3 class="service-card__title">Аренда автомобильных кранов</h3>
+        <p class="service-card__text">Мобильные автокраны от 16 до 100 тонн с быстрой подачей на объект</p>
+        <a href="services/mobile-cranes.html" class="service-card__link">Подробнее &rarr;</a>
+      </div>
+      <div class="service-card">
+        <div class="service-card__icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="8" fill="#FFF3EB"/><path d="M12 34h24M14 34v-12l10-8 10 8v12" stroke="#E8712A" stroke-width="2"/><circle cx="24" cy="26" r="3" stroke="#E8712A" stroke-width="2"/></svg>
+        </div>
+        <h3 class="service-card__title">Аренда гусеничных кранов</h3>
+        <p class="service-card__text">Тяжелая техника для работы на сложных площадках и крупных объектах</p>
+        <a href="services/crawler-cranes.html" class="service-card__link">Подробнее &rarr;</a>
+      </div>
+      <div class="service-card">
+        <div class="service-card__icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="8" fill="#FFF3EB"/><path d="M16 14h16v20H16z" stroke="#E8712A" stroke-width="2"/><path d="M20 20h8M20 24h8M20 28h4" stroke="#E8712A" stroke-width="2"/></svg>
+        </div>
+        <h3 class="service-card__title">Монтаж и проектирование</h3>
+        <p class="service-card__text">Полный комплекс инженерных услуг: ППР, схемы строповки, организация работ</p>
+        <a href="services/installation.html" class="service-card__link">Подробнее &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="section section--gray">
+  <div class="container">
+    <h2 class="section-title text-center">Почему выбирают нас</h2>
+    <p class="section-subtitle text-center">Надежный партнер для реализации строительных проектов любой сложности</p>
+    <div class="advantages-grid">
+      <div class="advantage">
+        <div class="advantage__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="advantage__title">Надежность и безопасность</div>
+          <div class="advantage__text">Вся техника проходит регулярное ТО, полный пакет документов и страхование</div>
+        </div>
+      </div>
+      <div class="advantage">
+        <div class="advantage__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="advantage__title">Оперативность</div>
+          <div class="advantage__text">Подача техники на объект в кратчайшие сроки по всей Беларуси и РБ</div>
+        </div>
+      </div>
+      <div class="advantage">
+        <div class="advantage__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div>
+          <div class="advantage__title">Профессиональная команда</div>
+          <div class="advantage__text">Квалифицированные специалисты с многолетним опытом</div>
+        </div>
+      </div>
+      <div class="advantage">
+        <div class="advantage__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div>
+          <div class="advantage__title">Полный пакет документов</div>
+          <div class="advantage__text">Договор, акты, ППР — все документы для безопасной работы</div>
+        </div>
+      </div>
+      <div class="advantage">
+        <div class="advantage__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <div>
+          <div class="advantage__title">Поддержка 24/7</div>
+          <div class="advantage__text">Консультации и техническая поддержка в любое время</div>
+        </div>
+      </div>
+      <div class="advantage">
+        <div class="advantage__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <div>
+          <div class="advantage__title">Прозрачные цены</div>
+          <div class="advantage__text">Фиксированные тарифы без скрытых платежей и доплат</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How We Work -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title text-center">Как мы работаем</h2>
+    <br>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step__number">01</div>
+        <h3 class="step__title">Заявка</h3>
+        <p class="step__text">Вы оставляете заявку на сайте или звоните нам</p>
+      </div>
+      <div class="step">
+        <div class="step__number">02</div>
+        <h3 class="step__title">Консультация</h3>
+        <p class="step__text">Наш специалист поможет подобрать оптимальное решение</p>
+      </div>
+      <div class="step">
+        <div class="step__number">03</div>
+        <h3 class="step__title">Расчет</h3>
+        <p class="step__text">Рассчитываем стоимость и согласовываем условия</p>
+      </div>
+      <div class="step">
+        <div class="step__number">04</div>
+        <h3 class="step__title">Работа</h3>
+        <p class="step__text">Доставляем технику и выполняем работы в срок</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- News -->
+<section class="section section--gray">
+  <div class="container">
+    <h2 class="section-title text-center">Новости</h2>
+    <br>
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-card__img"></div>
+        <div class="news-card__body">
+          <div class="news-card__meta">
+            <span>15 февраля 2026</span>
+            <span class="news-card__tag">Новости</span>
+            <span class="news-card__tag">Техника</span>
+          </div>
+          <h3 class="news-card__title">Пополнение парка: новые башенные краны</h3>
+          <p class="news-card__text">Мы расширили наш парк современными башенными кранами европейского производства с грузоподъемностью до 12 тонн.</p>
+          <a href="#" class="news-card__link">Читать далее &rarr;</a>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card__img"></div>
+        <div class="news-card__body">
+          <div class="news-card__meta">
+            <span>8 февраля 2026</span>
+            <span class="news-card__tag">Проекты</span>
+          </div>
+          <h3 class="news-card__title">Успешно завершен крупный проект</h3>
+          <p class="news-card__text">Наша команда завершила монтажные работы на объекте жилого комплекса "Минск Мир" с применением башенных и автомобильных кранов.</p>
+          <a href="#" class="news-card__link">Читать далее &rarr;</a>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card__img"></div>
+        <div class="news-card__body">
+          <div class="news-card__meta">
+            <span>1 февраля 2026</span>
+            <span class="news-card__tag">Услуги</span>
+          </div>
+          <h3 class="news-card__title">Новые услуги: проектирование ППР</h3>
+          <p class="news-card__text">Теперь мы предлагаем полный комплекс услуг по разработке проектов производства работ и схем строповки.</p>
+          <a href="#" class="news-card__link">Читать далее &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title text-center">Вопросы и ответы</h2>
+    <p class="section-subtitle text-center">Ответы на часто задаваемые вопросы об аренде крановой техники</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-item__question">Как быстро можно получить кран на объект?</button>
+        <div class="faq-item__answer">
+          <div class="faq-item__answer-inner">Автомобильные краны могут быть поданы в течение 2-4 часов по Минску и в течение суток по Беларуси. Для башенных и гусеничных кранов сроки зависят от необходимости монтажа и подготовки площадки — обычно это 3-7 дней.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__question">Как выбрать автокран нужной грузоподъемности?</button>
+        <div class="faq-item__answer">
+          <div class="faq-item__answer-inner">Выбор зависит от массы груза, высоты подъема и вылета стрелы. Наши специалисты бесплатно помогут подобрать оптимальную технику под ваши задачи. Достаточно сообщить параметры груза и условия работы.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__question">Какова минимальная продолжительность аренды автокрана?</button>
+        <div class="faq-item__answer">
+          <div class="faq-item__answer-inner">Минимальный срок аренды автомобильного крана — 1 смена (8 часов). Для башенных кранов минимальный срок аренды — 1 месяц. Возможны индивидуальные условия при долгосрочном сотрудничестве.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__question">Нужно ли готовить площадку для работы автокрана?</button>
+        <div class="faq-item__answer">
+          <div class="faq-item__answer-inner">Да, площадка должна быть ровной с достаточной несущей способностью грунта. Для автокранов необходимо обеспечить свободное пространство для выдвижения аутригеров. Наши специалисты проконсультируют по требованиям к площадке.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__question">Можно ли заказать автокран срочно?</button>
+        <div class="faq-item__answer">
+          <div class="faq-item__answer-inner">Да, мы работаем в режиме срочных заказов. При наличии свободной техники подача автокрана возможна в течение 1-2 часов по Минску. Звоните по телефону +375 (29) 123-45-67 для срочных заявок.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Form -->
+<section class="form-section" id="callback">
+  <div class="container">
+    <h2 class="section-title text-center">Оставить заявку</h2>
+    <p class="section-subtitle text-center">Заполните форму и мы свяжемся с вами в ближайшее время</p>
+    <div class="form-wrapper">
+      <form id="contactForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Имя *</label>
+            <input type="text" class="form-input" placeholder="Ваше имя" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Телефон *</label>
+            <input type="tel" class="form-input" placeholder="+375 (29) 123-45-67" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="example@mail.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Интересующая услуга</label>
+            <select class="form-select">
+              <option value="">Выберите услугу</option>
+              <option>Аренда башенного крана</option>
+              <option>Аренда автомобильного крана</option>
+              <option>Аренда гусеничного крана</option>
+              <option>Монтаж и проектирование</option>
+            </select>
+          </div>
+          <div class="form-group form-group--full">
+            <label class="form-label">Комментарий</label>
+            <textarea class="form-input" placeholder="Опишите ваш проект или задайте вопрос"></textarea>
+          </div>
+          <div class="form-group form-group--full">
+            <button type="submit" class="btn btn--primary btn--lg btn--full">Отправить заявку</button>
+            <p class="form-note">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- SEO Text -->
+<section class="seo-text">
+  <div class="container">
+    <p><strong>Аренда крановой техники в Минске и Беларуси</strong> — это основное направление деятельности нашей компании. Мы предоставляем в аренду башенные, автомобильные и гусеничные краны для строительных объектов любой сложности. Наш парк техники регулярно обновляется и проходит техническое обслуживание, что гарантирует надежность и безопасность работ. Все операторы имеют необходимые допуски и многолетний опыт работы на различных типах кранов.</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer__logo">
+          <a href="index.html" class="logo">
+            <div class="logo__icon">КР</div>
+            <div class="logo__text">
+              <span class="logo__name" style="color:#fff">КранРент</span>
+            </div>
+          </a>
+        </div>
+        <p class="footer__desc">Аренда крановой техники и инженерные услуги в Минске и по всей Беларуси</p>
+      </div>
+      <div>
+        <h4 class="footer__heading">Услуги</h4>
+        <ul class="footer__links">
+          <li><a href="services/tower-cranes.html">Башенные краны</a></li>
+          <li><a href="services/mobile-cranes.html">Автомобильные краны</a></li>
+          <li><a href="services/crawler-cranes.html">Гусеничные краны</a></li>
+          <li><a href="services/installation.html">Монтаж и проектирование</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer__heading">Навигация</h4>
+        <ul class="footer__links">
+          <li><a href="about.html">О компании</a></li>
+          <li><a href="news.html">Новости</a></li>
+          <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer__heading">Контакты</h4>
+        <div class="footer__contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          +375 (29) 123-45-67
+        </div>
+        <div class="footer__contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          info@cranes.by
+        </div>
+        <div class="footer__contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          г. Минск, ул. Промышленная, 15
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 КранРент. Все права защищены. УНП: 123456789 | ООО "КранРент"</span>
+      <a href="#">Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

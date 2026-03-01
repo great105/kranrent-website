@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты — КранРент</title>
+  <meta name="description" content="Контакты компании КранРент. Телефон: +375 (29) 123-45-67. Email: info@cranes.by. г. Минск, ул. Промышленная, 15.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="top-bar"><div class="container"><div class="top-bar__left"><a href="tel:+375291234567"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> +375 (29) 123-45-67</a><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Пн-Пт: 8:00 - 18:00</span></div><div class="top-bar__right"><a href="mailto:info@cranes.by">info@cranes.by</a></div></div></div>
+
+<header class="header"><div class="container"><a href="index.html" class="logo"><div class="logo__icon">КР</div><div class="logo__text"><span class="logo__name">КранРент</span><span class="logo__desc">Аренда крановой техники</span></div></a><nav class="nav"><div class="nav__dropdown"><a href="#" class="nav__link nav__link--dropdown">Услуги</a><div class="nav__dropdown-menu"><a href="services/tower-cranes.html">Башенные краны</a><a href="services/mobile-cranes.html">Автомобильные краны</a><a href="services/crawler-cranes.html">Гусеничные краны</a><a href="services/installation.html">Монтаж и проектирование</a></div></div><a href="news.html" class="nav__link">Новости</a><a href="about.html" class="nav__link">О компании</a><a href="contacts.html" class="nav__link">Контакты</a></nav><a href="contacts.html" class="btn btn--primary header__cta">Рассчитать стоимость</a><button class="burger" id="burgerBtn" aria-label="Меню"><span></span><span></span><span></span></button></div></header>
+
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="mobile-nav" id="mobileNav"><button class="mobile-nav__close" id="mobileClose">&times;</button><a href="index.html" class="mobile-nav__link">Главная</a><span class="mobile-nav__link">Услуги</span><div class="mobile-nav__sub"><a href="services/tower-cranes.html">Башенные краны</a><a href="services/mobile-cranes.html">Автомобильные краны</a><a href="services/crawler-cranes.html">Гусеничные краны</a><a href="services/installation.html">Монтаж и проектирование</a></div><a href="news.html" class="mobile-nav__link">Новости</a><a href="about.html" class="mobile-nav__link">О компании</a><a href="contacts.html" class="mobile-nav__link">Контакты</a><br><a href="contacts.html" class="btn btn--primary btn--full">Рассчитать стоимость</a></div>
+
+<div class="breadcrumbs"><div class="container"><a href="index.html">Главная</a><span>&gt;</span>Контакты</div></div>
+
+<section class="section">
+  <div class="container">
+    <h1 class="section-title" style="font-size:38px;">Контакты</h1>
+    <p style="font-size:17px;color:var(--text-light);margin-bottom:48px;">Свяжитесь с нами удобным способом</p>
+
+    <!-- Contact Cards -->
+    <h2 style="font-size:22px;font-weight:700;margin-bottom:24px;">Как с нами связаться</h2>
+    <div class="contacts-grid">
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <h3 class="contact-card__title">Телефоны</h3>
+        <div class="contact-card__text">
+          <a href="tel:+375291234567">+375 (29) 123-45-67</a> (МТС)<br>
+          <a href="tel:+375291234568">+375 (29) 123-45-68</a> (А1)<br>
+          <a href="tel:+375171234569">+375 (17) 123-45-69</a> (городской)
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <h3 class="contact-card__title">Email</h3>
+        <div class="contact-card__text">
+          <a href="mailto:info@cranes.by">info@cranes.by</a><br>
+          <a href="mailto:sales@cranes.by">sales@cranes.by</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <h3 class="contact-card__title">Мессенджеры</h3>
+        <div class="contact-card__text">
+          Telegram: @cranes_rent<br>
+          Viber: +375 (29) 123-45-67<br>
+          WhatsApp: +375 (29) 123-45-67
+        </div>
+      </div>
+    </div>
+
+    <!-- Address & Schedule -->
+    <div class="contacts-grid" style="margin-bottom:48px;">
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3 class="contact-card__title">Адрес</h3>
+        <div class="contact-card__text">
+          г. Минск, ул. Промышленная, 15<br>
+          Офис 301, 3 этаж
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3 class="contact-card__title">Режим работы</h3>
+        <div class="contact-card__text">
+          Пн-Пт: 8:00 - 18:00<br>
+          Сб: 9:00 - 15:00<br>
+          Вс: выходной
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <h3 class="contact-card__title">Реквизиты</h3>
+        <div class="contact-card__text">
+          ООО "КранРент"<br>
+          УНП: 123456789<br>
+          ОКПО: 12345678
+        </div>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <h2 style="font-size:22px;font-weight:700;margin-bottom:24px;">Адрес и карта</h2>
+    <div class="map-wrapper">Карта (заглушка)</div>
+  </div>
+</section>
+
+<!-- Contact Form -->
+<section class="form-section" id="callback">
+  <div class="container">
+    <h2 class="section-title text-center">Оставить заявку</h2>
+    <p class="section-subtitle text-center">Заполните форму и мы свяжемся с вами в ближайшее время</p>
+    <div class="form-wrapper">
+      <form id="contactForm">
+        <div class="form-grid">
+          <div class="form-group"><label class="form-label">Имя *</label><input type="text" class="form-input" placeholder="Ваше имя" required></div>
+          <div class="form-group"><label class="form-label">Телефон *</label><input type="tel" class="form-input" placeholder="+375 (29) 123-45-67" required></div>
+          <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="example@mail.com"></div>
+          <div class="form-group"><label class="form-label">Интересующая услуга</label><select class="form-select"><option value="">Выберите услугу</option><option>Аренда башенного крана</option><option>Аренда автомобильного крана</option><option>Аренда гусеничного крана</option><option>Монтаж и проектирование</option></select></div>
+          <div class="form-group form-group--full"><label class="form-label">Комментарий</label><textarea class="form-input" placeholder="Опишите ваш проект или задайте вопрос"></textarea></div>
+          <div class="form-group form-group--full"><button type="submit" class="btn btn--primary btn--lg btn--full">Отправить заявку</button><p class="form-note">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div><div class="footer__logo"><a href="index.html" class="logo"><div class="logo__icon">КР</div><div class="logo__text"><span class="logo__name" style="color:#fff">КранРент</span></div></a></div><p class="footer__desc">Аренда крановой техники и инженерные услуги в Минске и по всей Беларуси</p></div><div><h4 class="footer__heading">Услуги</h4><ul class="footer__links"><li><a href="services/tower-cranes.html">Башенные краны</a></li><li><a href="services/mobile-cranes.html">Автомобильные краны</a></li><li><a href="services/crawler-cranes.html">Гусеничные краны</a></li><li><a href="services/installation.html">Монтаж и проектирование</a></li></ul></div><div><h4 class="footer__heading">Навигация</h4><ul class="footer__links"><li><a href="about.html">О компании</a></li><li><a href="news.html">Новости</a></li><li><a href="contacts.html">Контакты</a></li></ul></div><div><h4 class="footer__heading">Контакты</h4><div class="footer__contact-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> +375 (29) 123-45-67</div><div class="footer__contact-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> info@cranes.by</div><div class="footer__contact-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> г. Минск, ул. Промышленная, 15</div></div></div><div class="footer-bottom"><span>&copy; 2026 КранРент. Все права защищены.</span><a href="#">Политика конфиденциальности</a></div></div></footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
