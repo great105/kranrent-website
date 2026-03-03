@@ -1,0 +1,17 @@
+# Screenshots and media
+*.png
+*.jpeg
+*.jpg
+*.mp4
+!img/**
+
+# Playwright
+.playwright-mcp/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store

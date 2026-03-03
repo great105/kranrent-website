@@ -1,87 +1,7 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>БПМ Альянс — Аренда и эксплуатация кранов в Минске и Беларуси</title>
-  <meta name="description" content="Аренда башенных, автомобильных и гусеничных кранов с экипажем в Минске и Беларуси. Монтаж, эксплуатация, проектные работы. Работаем с 2007 года.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-<!-- Top Bar -->
-<div class="top-bar">
-  <div class="container">
-    <div class="top-bar__left">
-      <a href="tel:+375445841091">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        +375 (44) 584-10-91
-      </a>
-      <span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        Круглосуточно
-      </span>
-    </div>
-    <div class="top-bar__right">
-      <a href="mailto:info@bpm-alyans.by">info@bpm-alyans.by</a>
-    </div>
-  </div>
-</div>
-
-<!-- Header -->
-<header class="header">
-  <div class="container">
-    <a href="index.html" class="logo">
-      <img src="img/logo.png" alt="БПМ Альянс" class="logo__img" style="height:44px;width:auto;">
-      <div class="logo__text">
-        <span class="logo__name">БПМ Альянс</span>
-        <span class="logo__desc">Аренда и эксплуатация кранов</span>
-      </div>
-    </a>
-    <nav class="nav">
-      <div class="nav__dropdown">
-        <a href="#" class="nav__link nav__link--dropdown">Услуги</a>
-        <div class="nav__dropdown-menu">
-          <a href="services/tower-cranes.html">Башенные краны</a>
-          <a href="services/mobile-cranes.html">Автомобильные краны</a>
-          <a href="services/crawler-cranes.html">Гусеничные краны</a>
-          <a href="services/installation.html">Монтаж и проектирование</a>
-        </div>
-      </div>
-      <a href="news.html" class="nav__link">Новости</a>
-      <a href="about.html" class="nav__link">О компании</a>
-      <a href="contacts.html" class="nav__link">Контакты</a>
-    </nav>
-    <a href="contacts.html" class="btn btn--primary header__cta">Рассчитать стоимость</a>
-    <button class="burger" id="burgerBtn" aria-label="Меню">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
-
-<!-- Mobile Nav -->
-<div class="mobile-overlay" id="mobileOverlay"></div>
-<div class="mobile-nav" id="mobileNav">
-  <button class="mobile-nav__close" id="mobileClose">&times;</button>
-  <a href="index.html" class="mobile-nav__link">Главная</a>
-  <span class="mobile-nav__link">Услуги</span>
-  <div class="mobile-nav__sub">
-    <a href="services/tower-cranes.html">Башенные краны</a>
-    <a href="services/mobile-cranes.html">Автомобильные краны</a>
-    <a href="services/crawler-cranes.html">Гусеничные краны</a>
-    <a href="services/installation.html">Монтаж и проектирование</a>
-  </div>
-  <a href="news.html" class="mobile-nav__link">Новости</a>
-  <a href="about.html" class="mobile-nav__link">О компании</a>
-  <a href="contacts.html" class="mobile-nav__link">Контакты</a>
-  <br>
-  <a href="contacts.html" class="btn btn--primary btn--full">Рассчитать стоимость</a>
-</div>
+<?php get_header(); ?>
 
 <!-- Hero -->
-<section class="hero">
+<section class="hero" style="background-image: url('<?php echo get_template_directory_uri(); ?>/img/hero-bg.webp');">
   <div class="container">
     <div class="hero__content">
       <h1 class="hero__title">Аренда и эксплуатация кранов с экипажем в Беларуси</h1>
@@ -99,36 +19,36 @@
   <div class="container">
     <div class="services-grid">
       <div class="service-card">
-        <div class="service-card__icon">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="8" fill="#EEF0FA"/><path d="M14 34V18l10-6 10 6v16" stroke="#6179D8" stroke-width="2"/><path d="M20 34v-8h8v8" stroke="#6179D8" stroke-width="2"/></svg>
+        <div class="service-card__img">
+          <img src="<?php echo get_template_directory_uri(); ?>/img/cranes/tower-1.jpg" alt="Башенные краны">
         </div>
         <h3 class="service-card__title">Башенные краны до 10 тн</h3>
         <p class="service-card__text">Современные краны на анкерном основании: Zoomlion WA 6013-8, стрела 60 м, высота башни до 81 м</p>
-        <a href="services/tower-cranes.html" class="service-card__link">Подробнее &rarr;</a>
+        <a href="<?php echo esc_url( home_url( '/tower-cranes/' ) ); ?>" class="service-card__link">Подробнее &rarr;</a>
       </div>
       <div class="service-card">
-        <div class="service-card__icon">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="8" fill="#EEF0FA"/><rect x="10" y="28" width="28" height="6" rx="2" stroke="#6179D8" stroke-width="2"/><path d="M16 28v-8l8-6 8 6v8" stroke="#6179D8" stroke-width="2"/></svg>
+        <div class="service-card__img">
+          <img src="<?php echo get_template_directory_uri(); ?>/img/cranes/mobile-1.jpg" alt="Автомобильные краны">
         </div>
         <h3 class="service-card__title">Автокраны до 100 тн</h3>
         <p class="service-card__text">Sany STC1000T6 грузоподъёмностью 100 тн, стрела 60 м + гусёк 15 м. Покрывает диапазон 60-80-100 тн</p>
-        <a href="services/mobile-cranes.html" class="service-card__link">Подробнее &rarr;</a>
+        <a href="<?php echo esc_url( home_url( '/mobile-cranes/' ) ); ?>" class="service-card__link">Подробнее &rarr;</a>
       </div>
       <div class="service-card">
-        <div class="service-card__icon">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="8" fill="#EEF0FA"/><path d="M12 34h24M14 34v-12l10-8 10 8v12" stroke="#6179D8" stroke-width="2"/><circle cx="24" cy="26" r="3" stroke="#6179D8" stroke-width="2"/></svg>
+        <div class="service-card__img">
+          <img src="<?php echo get_template_directory_uri(); ?>/img/cranes/crawler-1.jpg" alt="Гусеничные краны">
         </div>
         <h3 class="service-card__title">Гусеничные краны 25 тн</h3>
         <p class="service-card__text">Дизель-электрический ДЭК-251, стрела 32+5 м. Бюджетное решение для начального этапа строительства</p>
-        <a href="services/crawler-cranes.html" class="service-card__link">Подробнее &rarr;</a>
+        <a href="<?php echo esc_url( home_url( '/crawler-cranes/' ) ); ?>" class="service-card__link">Подробнее &rarr;</a>
       </div>
       <div class="service-card">
-        <div class="service-card__icon">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="8" fill="#EEF0FA"/><path d="M16 14h16v20H16z" stroke="#6179D8" stroke-width="2"/><path d="M20 20h8M20 24h8M20 28h4" stroke="#6179D8" stroke-width="2"/></svg>
+        <div class="service-card__img">
+          <img src="<?php echo get_template_directory_uri(); ?>/img/icons/construction.png" alt="Монтаж и проектирование">
         </div>
         <h3 class="service-card__title">Монтаж и проектирование</h3>
         <p class="service-card__text">Монтаж башенного крана за 1 день. ППРк, проектирование фундаментов, изменения в ПОС</p>
-        <a href="services/installation.html" class="service-card__link">Подробнее &rarr;</a>
+        <a href="<?php echo esc_url( home_url( '/installation/' ) ); ?>" class="service-card__link">Подробнее &rarr;</a>
       </div>
     </div>
   </div>
@@ -216,14 +136,48 @@
     <h2 class="section-title text-center">Новости</h2>
     <br>
     <div class="news-grid">
+      <?php
+      $news_query = new WP_Query( array(
+          'post_type'      => 'news',
+          'posts_per_page' => 3,
+          'orderby'        => 'date',
+          'order'          => 'DESC',
+      ) );
+
+      if ( $news_query->have_posts() ) :
+          while ( $news_query->have_posts() ) : $news_query->the_post();
+      ?>
+      <div class="news-card">
+        <div class="news-card__img">
+          <?php if ( has_post_thumbnail() ) : ?>
+            <?php the_post_thumbnail( 'medium_large' ); ?>
+          <?php endif; ?>
+        </div>
+        <div class="news-card__body">
+          <div class="news-card__meta">
+            <span><?php echo get_the_date( 'j F Y' ); ?></span>
+            <?php
+            $tags = get_the_terms( get_the_ID(), 'news_tag' );
+            if ( $tags && ! is_wp_error( $tags ) ) :
+                foreach ( $tags as $tag ) :
+            ?>
+              <span class="news-card__tag"><?php echo esc_html( $tag->name ); ?></span>
+            <?php endforeach; endif; ?>
+          </div>
+          <h3 class="news-card__title"><?php the_title(); ?></h3>
+          <p class="news-card__text"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 20 ) ); ?></p>
+          <a href="<?php the_permalink(); ?>" class="news-card__link">Читать далее &rarr;</a>
+        </div>
+      </div>
+      <?php
+          endwhile;
+          wp_reset_postdata();
+      else :
+      ?>
       <div class="news-card">
         <div class="news-card__img"></div>
         <div class="news-card__body">
-          <div class="news-card__meta">
-            <span>15 февраля 2026</span>
-            <span class="news-card__tag">Новости</span>
-            <span class="news-card__tag">Техника</span>
-          </div>
+          <div class="news-card__meta"><span>15 февраля 2026</span><span class="news-card__tag">Новости</span></div>
           <h3 class="news-card__title">Пополнение парка: новые башенные краны</h3>
           <p class="news-card__text">Мы расширили наш парк современными башенными кранами европейского производства с грузоподъемностью до 12 тонн.</p>
           <a href="#" class="news-card__link">Читать далее &rarr;</a>
@@ -232,10 +186,7 @@
       <div class="news-card">
         <div class="news-card__img"></div>
         <div class="news-card__body">
-          <div class="news-card__meta">
-            <span>8 февраля 2026</span>
-            <span class="news-card__tag">Проекты</span>
-          </div>
+          <div class="news-card__meta"><span>8 февраля 2026</span><span class="news-card__tag">Проекты</span></div>
           <h3 class="news-card__title">Успешно завершен крупный проект</h3>
           <p class="news-card__text">Наша команда завершила монтажные работы на объекте жилого комплекса "Минск Мир" с применением башенных и автомобильных кранов.</p>
           <a href="#" class="news-card__link">Читать далее &rarr;</a>
@@ -244,15 +195,13 @@
       <div class="news-card">
         <div class="news-card__img"></div>
         <div class="news-card__body">
-          <div class="news-card__meta">
-            <span>1 февраля 2026</span>
-            <span class="news-card__tag">Услуги</span>
-          </div>
+          <div class="news-card__meta"><span>1 февраля 2026</span><span class="news-card__tag">Услуги</span></div>
           <h3 class="news-card__title">Новые услуги: проектирование ППР</h3>
           <p class="news-card__text">Теперь мы предлагаем полный комплекс услуг по разработке проектов производства работ и схем строповки.</p>
           <a href="#" class="news-card__link">Читать далее &rarr;</a>
         </div>
       </div>
+      <?php endif; ?>
     </div>
   </div>
 </section>
@@ -292,48 +241,7 @@
 </section>
 
 <!-- Contact Form -->
-<section class="form-section" id="callback">
-  <div class="container">
-    <h2 class="section-title text-center">Оставить заявку</h2>
-    <p class="section-subtitle text-center">Заполните форму и мы свяжемся с вами в ближайшее время</p>
-    <div class="form-wrapper">
-      <form id="contactForm">
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">Имя *</label>
-            <input type="text" class="form-input" placeholder="Ваше имя" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Телефон *</label>
-            <input type="tel" class="form-input" placeholder="+375 (44) 584-10-91" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-input" placeholder="example@mail.com">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Интересующая услуга</label>
-            <select class="form-select">
-              <option value="">Выберите услугу</option>
-              <option>Аренда башенного крана</option>
-              <option>Аренда автомобильного крана</option>
-              <option>Аренда гусеничного крана</option>
-              <option>Монтаж и проектирование</option>
-            </select>
-          </div>
-          <div class="form-group form-group--full">
-            <label class="form-label">Комментарий</label>
-            <textarea class="form-input" placeholder="Опишите ваш проект или задайте вопрос"></textarea>
-          </div>
-          <div class="form-group form-group--full">
-            <button type="submit" class="btn btn--primary btn--lg btn--full">Отправить заявку</button>
-            <p class="form-note">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</section>
+<?php get_template_part( 'template-parts/contact-form' ); ?>
 
 <!-- SEO Text -->
 <section class="seo-text">
@@ -342,61 +250,4 @@
   </div>
 </section>
 
-<!-- Footer -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer__logo">
-          <a href="index.html" class="logo">
-            <img src="img/logo.png" alt="БПМ Альянс" style="height:44px;width:auto;">
-            <div class="logo__text">
-              <span class="logo__name" style="color:#fff">БПМ Альянс</span>
-            </div>
-          </a>
-        </div>
-        <p class="footer__desc">Аренда, монтаж, обслуживание и эксплуатация грузоподъёмного оборудования в Минске и по всей Беларуси</p>
-      </div>
-      <div>
-        <h4 class="footer__heading">Услуги</h4>
-        <ul class="footer__links">
-          <li><a href="services/tower-cranes.html">Башенные краны</a></li>
-          <li><a href="services/mobile-cranes.html">Автомобильные краны</a></li>
-          <li><a href="services/crawler-cranes.html">Гусеничные краны</a></li>
-          <li><a href="services/installation.html">Монтаж и проектирование</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="footer__heading">Навигация</h4>
-        <ul class="footer__links">
-          <li><a href="about.html">О компании</a></li>
-          <li><a href="news.html">Новости</a></li>
-          <li><a href="contacts.html">Контакты</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="footer__heading">Контакты</h4>
-        <div class="footer__contact-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          +375 (44) 584-10-91
-        </div>
-        <div class="footer__contact-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          info@bpm-alyans.by
-        </div>
-        <div class="footer__contact-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          г. Минск, ул. Красноармейская, д. 20А, офис 21
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>&copy; 2026 БПМ Альянс. Все права защищены. УНП: 193879266 | ООО «БПМ Альянс»</span>
-      <a href="#">Политика конфиденциальности</a>
-    </div>
-  </div>
-</footer>
-
-<script src="js/main.js"></script>
-</body>
-</html>
+<?php get_footer(); ?>
