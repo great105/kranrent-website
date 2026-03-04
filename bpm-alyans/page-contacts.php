@@ -52,7 +52,7 @@ get_header(); ?>
         </div>
         <h3 class="contact-card__title">Адрес</h3>
         <div class="contact-card__text">
-          <?php echo esc_html( get_theme_mod( 'bpm_address_full', '220030, г. Минск, ул. Красноармейская, д. 20А, офис 21' ) ); ?>
+          <?php echo esc_html( get_theme_mod( 'bpm_address_full', '220029, г. Минск, ул. Коммунистическая, д. 11, оф. 603' ) ); ?>
         </div>
       </div>
       <div class="contact-card">
@@ -83,22 +83,7 @@ get_header(); ?>
     <!-- Map -->
     <h2 style="font-size:22px;font-weight:700;margin-bottom:24px;">Адрес и карта</h2>
     <div class="map-wrapper">
-      <div id="bpm-map" style="width:100%;height:450px;border-radius:12px;overflow:hidden;"></div>
-      <script src="https://api-maps.yandex.ru/2.1/?apikey=none&lang=ru_RU" type="text/javascript"></script>
-      <script type="text/javascript">
-        ymaps.ready(function() {
-          var map = new ymaps.Map('bpm-map', {
-            center: [53.8988, 27.5533],
-            zoom: 16
-          });
-          var placemark = new ymaps.Placemark([53.8988, 27.5533], {
-            balloonContent: 'БПМ Альянс<br>ул. Коммунистическая, 11, оф. 603'
-          }, {
-            preset: 'islands#blueCircleDotIcon'
-          });
-          map.geoObjects.add(placemark);
-        });
-      </script>
+      <iframe src="https://yandex.ru/map-widget/v1/?ll=27.5533%2C53.8988&z=16&pt=27.5533%2C53.8988%2Cpm2blm~&text=%D0%91%D0%9F%D0%9C%20%D0%90%D0%BB%D1%8C%D1%8F%D0%BD%D1%81%2C%20%D1%83%D0%BB.%20%D0%9A%D0%BE%D0%BC%D0%BC%D1%83%D0%BD%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%2011" style="width:100%;height:450px;border:0;border-radius:12px;" allowfullscreen></iframe>
     </div>
   </div>
 </section>

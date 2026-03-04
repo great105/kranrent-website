@@ -11,7 +11,7 @@ get_header(); ?>
     <h1 class="page-hero__title">Аренда гусеничных кранов</h1>
     <p class="page-hero__text">Решение для работы с тяжелыми грузами и на сложных площадках. Гусеничный ход обеспечивает устойчивость и низкое давление на грунт.</p>
     <div class="hero__buttons">
-      <a href="<?php echo esc_url( home_url( '/contacts/' ) ); ?>" class="btn btn--primary btn--lg">Запросить консультацию</a>
+      <a href="#callback" class="btn btn--primary btn--lg">Запросить консультацию</a>
       <a href="<?php echo esc_url( home_url( '/contacts/' ) ); ?>" class="btn btn--outline-dark btn--lg" style="border-color:rgba(255,255,255,0.4);color:#fff;">Получить расчет</a>
     </div>
   </div>
