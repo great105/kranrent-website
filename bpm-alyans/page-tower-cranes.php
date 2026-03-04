@@ -89,12 +89,106 @@ wp_reset_postdata();
     <h2 class="section-title">Условия аренды</h2>
     <br>
     <ul class="conditions-list">
-      <li>Минимальный срок аренды - 1 месяц</li>
+      <li>Минимальный срок аренды — 1 месяц</li>
       <li>В стоимость входит: кран, оператор, обслуживание</li>
       <li>Монтаж и демонтаж оплачивается отдельно</li>
-      <li>Требуется подготовленная площадка</li>
+      <li>Требуется подготовленная площадка с фундаментом</li>
       <li>Необходимо энергоснабжение на объекте</li>
     </ul>
+  </div>
+</section>
+
+<!-- How We Work -->
+<section class="section section--gray">
+  <div class="container">
+    <h2 class="section-title text-center">Как мы работаем</h2>
+    <br>
+    <div class="steps-grid">
+      <div class="step"><div class="step__number">01</div><h3 class="step__title">Заявка</h3><p class="step__text">Вы оставляете заявку на сайте или звоните нам</p></div>
+      <div class="step"><div class="step__number">02</div><h3 class="step__title">Консультация</h3><p class="step__text">Наш специалист поможет подобрать оптимальное решение</p></div>
+      <div class="step"><div class="step__number">03</div><h3 class="step__title">Расчет</h3><p class="step__text">Рассчитываем стоимость и согласовываем условия</p></div>
+      <div class="step"><div class="step__number">04</div><h3 class="step__title">Работа</h3><p class="step__text">Выполняем монтаж крана и запускаем в эксплуатацию</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Documents -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Документы и допуски</h2>
+    <br>
+    <div class="docs-grid">
+      <div class="doc-card">
+        <div class="doc-card__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div class="doc-card__title">Паспорт крана</div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-card__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg></div>
+        <div class="doc-card__title">Допуски операторов</div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-card__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <div class="doc-card__title">ППР на работы</div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-card__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="doc-card__title">Страхование</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Requirements -->
+<section class="section section--gray">
+  <div class="container">
+    <h2 class="section-title">Требования к площадке и подготовке</h2>
+    <br>
+    <div class="two-col-info">
+      <div class="two-col-info__col">
+        <h3 class="two-col-info__title">Подготовка площадки:</h3>
+        <ul class="two-col-info__list">
+          <li>Подготовленный фундамент под башенный кран</li>
+          <li>Грунт с несущей способностью от 2 кг/см&sup2;</li>
+          <li>Свободное пространство для монтажа</li>
+          <li>Подъезд для трала с секциями крана</li>
+        </ul>
+      </div>
+      <div class="two-col-info__col">
+        <h3 class="two-col-info__title">Безопасность:</h3>
+        <ul class="two-col-info__list">
+          <li>Отсутствие ЛЭП в зоне работы</li>
+          <li>Ограждение опасной зоны</li>
+          <li>Энергоснабжение (380В) на объекте</li>
+          <li>ППР и схемы строповки</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">FAQ</h2>
+    <br>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-item__question">Какой минимальный срок аренды башенного крана?</button>
+        <div class="faq-item__answer"><div class="faq-item__answer-inner">Минимальный срок аренды башенного крана — 1 месяц. При долгосрочной аренде от 3 месяцев действуют скидки.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__question">Что входит в стоимость аренды?</button>
+        <div class="faq-item__answer"><div class="faq-item__answer-inner">В стоимость входит: сам кран, оператор, техническое обслуживание. Монтаж, демонтаж и доставка оплачиваются отдельно.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__question">Сколько времени занимает монтаж башенного крана?</button>
+        <div class="faq-item__answer"><div class="faq-item__answer-inner">Монтаж башенного крана занимает от 1 до 3 дней в зависимости от модели и высоты установки. Предварительно необходимо подготовить фундамент.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__question">Какие требования к электроснабжению?</button>
+        <div class="faq-item__answer"><div class="faq-item__answer-inner">Для работы башенного крана необходимо электропитание 380В. Мощность зависит от модели крана — от 30 до 60 кВт.</div></div>
+      </div>
+    </div>
   </div>
 </section>
 

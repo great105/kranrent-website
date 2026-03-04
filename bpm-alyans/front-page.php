@@ -226,7 +226,6 @@
           <div class="news-card__meta"><span>15 февраля 2026</span><span class="news-card__tag">Новости</span></div>
           <h3 class="news-card__title">Пополнение парка: новые башенные краны</h3>
           <p class="news-card__text">Мы расширили наш парк современными башенными кранами европейского производства с грузоподъемностью до 12 тонн.</p>
-          <a href="#" class="news-card__link">Читать далее &rarr;</a>
         </div>
       </div>
       <div class="news-card">
@@ -235,7 +234,6 @@
           <div class="news-card__meta"><span>8 февраля 2026</span><span class="news-card__tag">Проекты</span></div>
           <h3 class="news-card__title">Успешно завершен крупный проект</h3>
           <p class="news-card__text">Наша команда завершила монтажные работы на объекте жилого комплекса "Минск Мир" с применением башенных и автомобильных кранов.</p>
-          <a href="#" class="news-card__link">Читать далее &rarr;</a>
         </div>
       </div>
       <div class="news-card">
@@ -244,10 +242,12 @@
           <div class="news-card__meta"><span>1 февраля 2026</span><span class="news-card__tag">Услуги</span></div>
           <h3 class="news-card__title">Новые услуги: проектирование ППР</h3>
           <p class="news-card__text">Теперь мы предлагаем полный комплекс услуг по разработке проектов производства работ и схем строповки.</p>
-          <a href="#" class="news-card__link">Читать далее &rarr;</a>
         </div>
       </div>
       <?php endif; ?>
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="<?php echo esc_url( get_post_type_archive_link( 'news' ) ); ?>" class="btn btn--outline">Все новости</a>
     </div>
   </div>
 </section>
