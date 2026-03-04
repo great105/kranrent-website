@@ -7,7 +7,53 @@
       <h1 class="hero__title">Аренда и эксплуатация кранов с экипажем в Беларуси</h1>
       <p class="hero__text">Грузоподъёмная строительная техника: башенные, автомобильные и гусеничные краны. Полный комплекс услуг — аренда, монтаж, обслуживание и проектные работы. Работаем с 2007 года на всей территории РБ.</p>
       <div class="hero__buttons">
-        <a href="#callback" class="btn btn--primary btn--lg">Свободная техника</a>
+        <div class="hero-dropdown">
+          <button class="btn btn--primary btn--lg hero-dropdown__toggle" type="button">Свободная техника &#9662;</button>
+          <div class="hero-dropdown__menu">
+            <?php
+            $type_page_map = array(
+                'tower'   => array( 'label' => 'Башенные краны', 'page' => '/tower-cranes/' ),
+                'mobile'  => array( 'label' => 'Автомобильные краны', 'page' => '/mobile-cranes/' ),
+                'crawler' => array( 'label' => 'Гусеничные краны', 'page' => '/crawler-cranes/' ),
+            );
+            foreach ( $type_page_map as $type_slug => $type_info ) :
+                $dropdown_cranes = new WP_Query( array(
+                    'post_type'      => 'crane',
+                    'posts_per_page' => -1,
+                    'tax_query'      => array( array(
+                        'taxonomy' => 'crane_type',
+                        'field'    => 'slug',
+                        'terms'    => $type_slug,
+                    ) ),
+                    'meta_key'       => 'crane_sort_order',
+                    'orderby'        => 'meta_value_num',
+                    'order'          => 'ASC',
+                ) );
+                if ( $dropdown_cranes->have_posts() ) :
+            ?>
+            <div class="hero-dropdown__group">
+              <div class="hero-dropdown__heading"><?php echo esc_html( $type_info['label'] ); ?></div>
+              <?php while ( $dropdown_cranes->have_posts() ) : $dropdown_cranes->the_post();
+                  $anchor   = get_post_meta( get_the_ID(), 'crane_anchor', true );
+                  $capacity = get_post_meta( get_the_ID(), 'crane_capacity', true );
+                  $boom     = get_post_meta( get_the_ID(), 'crane_boom', true );
+                  $is_new   = get_post_meta( get_the_ID(), 'crane_is_new', true );
+                  $link     = home_url( $type_info['page'] . ( $anchor ? '#' . $anchor : '' ) );
+                  $label    = get_the_title();
+                  if ( $is_new === '1' ) $label .= ' (новый)';
+                  if ( $capacity ) $label .= ' — ' . $capacity;
+                  if ( $boom ) $label .= ', стрела ' . $boom;
+              ?>
+              <a href="<?php echo esc_url( $link ); ?>"><?php echo esc_html( $label ); ?></a>
+              <?php endwhile; ?>
+            </div>
+            <?php
+                endif;
+                wp_reset_postdata();
+            endforeach;
+            ?>
+          </div>
+        </div>
         <a href="#callback" class="btn btn--outline-dark btn--lg" style="border-color:rgba(255,255,255,0.4);color:#fff;">Форма запроса</a>
       </div>
     </div>
@@ -31,7 +77,7 @@
           <img src="<?php echo get_template_directory_uri(); ?>/img/cranes/mobile-1.jpg" alt="Автомобильные краны">
         </div>
         <h3 class="service-card__title">Автокраны до 100 тн</h3>
-        <p class="service-card__text">Sany STC1000T6 грузоподъёмностью 100 тн, стрела 60 м + гусёк 15 м. Покрывает диапазон 60-80-100 тн</p>
+        <p class="service-card__text">Sany STC1000T6 грузоподъёмностью до 100 тн, стрела 60 м + гусёк 17,5 м. Покрывает диапазон 25-60-80-100 тн</p>
         <a href="<?php echo esc_url( home_url( '/mobile-cranes/' ) ); ?>" class="service-card__link">Подробнее &rarr;</a>
       </div>
       <div class="service-card">
@@ -39,7 +85,7 @@
           <img src="<?php echo get_template_directory_uri(); ?>/img/cranes/crawler-1.jpg" alt="Гусеничные краны">
         </div>
         <h3 class="service-card__title">Гусеничные краны 25 тн</h3>
-        <p class="service-card__text">Дизель-электрический ДЭК-251, стрела 32+5 м. Бюджетное решение для начального этапа строительства</p>
+        <p class="service-card__text">ДЭК 251 и RDK-25 грузоподъёмностью 25 тн, стрела до 32 м + гусёк 5 м. Бюджетное решение для начального этапа строительства</p>
         <a href="<?php echo esc_url( home_url( '/crawler-cranes/' ) ); ?>" class="service-card__link">Подробнее &rarr;</a>
       </div>
       <div class="service-card">

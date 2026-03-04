@@ -53,6 +53,20 @@ if (header) {
   });
 }
 
+// Hero Dropdown - Свободная техника
+document.querySelectorAll('.hero-dropdown__toggle').forEach(function(btn) {
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    btn.closest('.hero-dropdown').classList.toggle('active');
+  });
+});
+document.addEventListener('click', function(e) {
+  document.querySelectorAll('.hero-dropdown.active').forEach(function(dd) {
+    if (!dd.contains(e.target)) dd.classList.remove('active');
+  });
+});
+
 // CF7: Pre-select service dropdown based on page body class
 document.addEventListener('DOMContentLoaded', function() {
   var select = document.querySelector('.wpcf7 select[name="service"]');

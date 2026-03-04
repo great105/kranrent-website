@@ -45,24 +45,57 @@ get_header(); ?>
     <h2 class="section-title">Парк техники</h2>
     <p class="section-subtitle">Современный парк крановой техники различной грузоподъемности для решения любых задач</p>
     <div class="fleet-grid">
+      <?php
+      $fleet_types = array(
+          'tower'   => array( 'label' => 'Башенные краны', 'fallback_img' => '/img/cranes/tower-5.jpg' ),
+          'mobile'  => array( 'label' => 'Автомобильные краны', 'fallback_img' => '/img/cranes/mobile-5.jpg' ),
+          'crawler' => array( 'label' => 'Гусеничные краны', 'fallback_img' => '/img/cranes/crawler-5.jpg' ),
+      );
+      foreach ( $fleet_types as $ft_slug => $ft_info ) :
+          $fleet_q = new WP_Query( array(
+              'post_type'      => 'crane',
+              'posts_per_page' => -1,
+              'tax_query'      => array( array(
+                  'taxonomy' => 'crane_type',
+                  'field'    => 'slug',
+                  'terms'    => $ft_slug,
+              ) ),
+              'meta_key'       => 'crane_sort_order',
+              'orderby'        => 'meta_value_num',
+              'order'          => 'ASC',
+          ) );
+          if ( $fleet_q->have_posts() ) :
+              $names = array();
+              $max_capacity = '';
+              $max_boom = '';
+              $first_thumb = '';
+              while ( $fleet_q->have_posts() ) : $fleet_q->the_post();
+                  $name = get_the_title();
+                  if ( ! in_array( $name, $names ) ) $names[] = $name;
+                  $cap = get_post_meta( get_the_ID(), 'crane_capacity', true );
+                  if ( $cap ) $max_capacity = $cap;
+                  $boom = get_post_meta( get_the_ID(), 'crane_boom', true );
+                  if ( $boom ) $max_boom = $boom;
+                  if ( ! $first_thumb && has_post_thumbnail() ) {
+                      $first_thumb = get_the_post_thumbnail_url( get_the_ID(), 'medium_large' );
+                  }
+              endwhile;
+              wp_reset_postdata();
+              $img_url = $first_thumb ? $first_thumb : get_template_directory_uri() . $ft_info['fallback_img'];
+      ?>
       <div class="fleet-card">
-        <div class="fleet-card__img"><img src="<?php echo get_template_directory_uri(); ?>/img/cranes/tower-5.jpg" alt="Башенные краны"></div>
-        <h3 class="fleet-card__title">Башенные краны</h3>
-        <p class="fleet-card__count">Zoomlion WA 6013-8</p>
-        <p class="fleet-card__count">Грузоподъёмность до 10 тн, стрела 60 м</p>
+        <div class="fleet-card__img"><img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $ft_info['label'] ); ?>"></div>
+        <h3 class="fleet-card__title"><?php echo esc_html( $ft_info['label'] ); ?></h3>
+        <p class="fleet-card__count"><?php echo esc_html( implode( ', ', $names ) ); ?></p>
+        <p class="fleet-card__count">
+          <?php if ( $max_capacity ) echo 'Грузоподъёмность до ' . esc_html( $max_capacity ); ?>
+          <?php if ( $max_boom ) echo ', стрела ' . esc_html( $max_boom ); ?>
+        </p>
       </div>
-      <div class="fleet-card">
-        <div class="fleet-card__img"><img src="<?php echo get_template_directory_uri(); ?>/img/cranes/mobile-5.jpg" alt="Автомобильные краны"></div>
-        <h3 class="fleet-card__title">Автомобильные краны</h3>
-        <p class="fleet-card__count">Sany STC1000T6</p>
-        <p class="fleet-card__count">Грузоподъёмность до 100 тн, стрела 60 м</p>
-      </div>
-      <div class="fleet-card">
-        <div class="fleet-card__img"><img src="<?php echo get_template_directory_uri(); ?>/img/cranes/crawler-5.jpg" alt="Гусеничные краны"></div>
-        <h3 class="fleet-card__title">Гусеничные краны</h3>
-        <p class="fleet-card__count">ДЭК-251</p>
-        <p class="fleet-card__count">Грузоподъёмность 25 тн, стрела 32+5 м</p>
-      </div>
+      <?php
+          endif;
+      endforeach;
+      ?>
     </div>
     <div class="fleet-buttons">
       <a href="<?php echo esc_url( home_url( '/tower-cranes/' ) ); ?>" class="btn btn--outline">Башенные краны</a>

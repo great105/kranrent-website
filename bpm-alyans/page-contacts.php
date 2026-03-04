@@ -82,7 +82,24 @@ get_header(); ?>
 
     <!-- Map -->
     <h2 style="font-size:22px;font-weight:700;margin-bottom:24px;">Адрес и карта</h2>
-    <div class="map-wrapper">Карта (заглушка)</div>
+    <div class="map-wrapper">
+      <div id="bpm-map" style="width:100%;height:450px;border-radius:12px;overflow:hidden;"></div>
+      <script src="https://api-maps.yandex.ru/2.1/?apikey=none&lang=ru_RU" type="text/javascript"></script>
+      <script type="text/javascript">
+        ymaps.ready(function() {
+          var map = new ymaps.Map('bpm-map', {
+            center: [53.8988, 27.5533],
+            zoom: 16
+          });
+          var placemark = new ymaps.Placemark([53.8988, 27.5533], {
+            balloonContent: 'БПМ Альянс<br>ул. Коммунистическая, 11, оф. 603'
+          }, {
+            preset: 'islands#blueCircleDotIcon'
+          });
+          map.geoObjects.add(placemark);
+        });
+      </script>
+    </div>
   </div>
 </section>
 

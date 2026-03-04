@@ -17,42 +17,49 @@ get_header(); ?>
   </div>
 </section>
 
+<?php
+$cranes = new WP_Query( array(
+    'post_type'      => 'crane',
+    'posts_per_page' => -1,
+    'tax_query'      => array(
+        array(
+            'taxonomy' => 'crane_type',
+            'field'    => 'slug',
+            'terms'    => 'crawler',
+        ),
+    ),
+    'meta_key'       => 'crane_sort_order',
+    'orderby'        => 'meta_value_num',
+    'order'          => 'ASC',
+) );
+
+if ( $cranes->have_posts() ) : ?>
+
 <!-- Fleet -->
 <section class="section">
   <div class="container">
     <h2 class="section-title">Парк гусеничных кранов</h2>
     <br>
     <div class="cranes-grid cranes-grid--3">
-      <div class="crane-card">
-        <div class="crane-card__img"><img src="<?php echo get_template_directory_uri(); ?>/img/cranes/crawler-1.jpg" alt="ДЭК-251"></div>
-        <div class="crane-card__name">ДЭК-251</div>
-        <div class="crane-card__specs">
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Грузоподъемность:</span><span class="crane-card__spec-value">50 т</span></div>
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Вылет стрелы:</span><span class="crane-card__spec-value">25 м</span></div>
-        </div>
-        <a href="#callback" class="btn btn--outline btn--full">Подробнее</a>
-      </div>
-      <div class="crane-card">
-        <div class="crane-card__img"><img src="<?php echo get_template_directory_uri(); ?>/img/cranes/crawler-2.jpg" alt="МКГ-25БР"></div>
-        <div class="crane-card__name">МКГ-25БР</div>
-        <div class="crane-card__specs">
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Грузоподъемность:</span><span class="crane-card__spec-value">100 т</span></div>
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Вылет стрелы:</span><span class="crane-card__spec-value">30 м</span></div>
-        </div>
-        <a href="#callback" class="btn btn--outline btn--full">Подробнее</a>
-      </div>
-      <div class="crane-card">
-        <div class="crane-card__img"><img src="<?php echo get_template_directory_uri(); ?>/img/cranes/crawler-3.jpg" alt="СКГ-160"></div>
-        <div class="crane-card__name">СКГ-160</div>
-        <div class="crane-card__specs">
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Грузоподъемность:</span><span class="crane-card__spec-value">160 т</span></div>
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Вылет стрелы:</span><span class="crane-card__spec-value">40 м</span></div>
-        </div>
-        <a href="#callback" class="btn btn--outline btn--full">Подробнее</a>
-      </div>
+      <?php while ( $cranes->have_posts() ) : $cranes->the_post(); ?>
+        <?php get_template_part( 'template-parts/crane-card' ); ?>
+      <?php endwhile; ?>
     </div>
   </div>
 </section>
+
+<!-- Crane Details -->
+<?php
+$cranes->rewind_posts();
+$detail_index = 0;
+while ( $cranes->have_posts() ) : $cranes->the_post();
+    get_template_part( 'template-parts/crane-detail', null, array( 'index' => $detail_index ) );
+    $detail_index++;
+endwhile;
+wp_reset_postdata();
+?>
+
+<?php endif; ?>
 
 <!-- Cost -->
 <section class="section section--gray">
@@ -81,6 +88,6 @@ get_header(); ?>
 <?php get_template_part( 'template-parts/contact-form' ); ?>
 
 <!-- SEO Text -->
-<section class="seo-text"><div class="container"><p><strong>Аренда гусеничных кранов</strong> — решение для работы с тяжелыми грузами и на сложных площадках. Гусеничный ход обеспечивает устойчивость и низкое давление на грунт, что позволяет работать там, где автомобильные краны не справятся.</p></div></section>
+<section class="seo-text"><div class="container"><p><strong>Аренда гусеничных кранов в Минске и Беларуси</strong> — решение для работы с тяжелыми грузами на сложных площадках. Гусеничный ход обеспечивает устойчивость и низкое давление на грунт. Предоставляем краны ДЭК 251 и RDK-25 грузоподъёмностью 25 тонн с экипажем. Стрела до 32 м + гусёк 5 м.</p></div></section>
 
 <?php get_footer(); ?>

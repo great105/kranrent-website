@@ -16,13 +16,31 @@ get_header(); ?>
 <section class="page-hero" style="background-image: url('<?php echo get_template_directory_uri(); ?>/img/hero-bg2.jpg');">
   <div class="container">
     <h1 class="page-hero__title">Аренда автомобильных кранов</h1>
-    <p class="page-hero__text">Автокраны от 16 до 100 тонн с опытными операторами. Быстрая подача на объект, работа по всей Беларуси.</p>
+    <p class="page-hero__text">Автокраны от 25 до 100 тонн с опытными операторами. Быстрая подача на объект, работа по всей Беларуси.</p>
     <div class="hero__buttons">
-      <a href="<?php echo esc_url( home_url( '/contacts/' ) ); ?>" class="btn btn--primary btn--lg">Заказать автокран</a>
+      <a href="#callback" class="btn btn--primary btn--lg">Заказать автокран</a>
       <a href="<?php echo esc_url( home_url( '/contacts/' ) ); ?>" class="btn btn--outline-dark btn--lg" style="border-color:rgba(255,255,255,0.4);color:#fff;">Получить консультацию</a>
     </div>
   </div>
 </section>
+
+<?php
+$cranes = new WP_Query( array(
+    'post_type'      => 'crane',
+    'posts_per_page' => -1,
+    'tax_query'      => array(
+        array(
+            'taxonomy' => 'crane_type',
+            'field'    => 'slug',
+            'terms'    => 'mobile',
+        ),
+    ),
+    'meta_key'       => 'crane_sort_order',
+    'orderby'        => 'meta_value_num',
+    'order'          => 'ASC',
+) );
+
+if ( $cranes->have_posts() ) : ?>
 
 <!-- Crane Fleet -->
 <section class="section">
@@ -30,45 +48,25 @@ get_header(); ?>
     <h2 class="section-title">Парк автомобильных кранов</h2>
     <br>
     <div class="cranes-grid">
-      <div class="crane-card">
-        <div class="crane-card__img"><img src="<?php echo get_template_directory_uri(); ?>/img/cranes/mobile-1.jpg" alt="КС-35715"></div>
-        <div class="crane-card__name">КС-35715</div>
-        <div class="crane-card__specs">
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Грузоподъемность:</span><span class="crane-card__spec-value">16 т</span></div>
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Макс. вылет:</span><span class="crane-card__spec-value">18 м</span></div>
-        </div>
-        <a href="#callback" class="btn btn--outline btn--full">Подробнее</a>
-      </div>
-      <div class="crane-card">
-        <div class="crane-card__img"><img src="<?php echo get_template_directory_uri(); ?>/img/cranes/mobile-2.jpg" alt="КС-45721"></div>
-        <div class="crane-card__name">КС-45721</div>
-        <div class="crane-card__specs">
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Грузоподъемность:</span><span class="crane-card__spec-value">25 т</span></div>
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Макс. вылет:</span><span class="crane-card__spec-value">22 м</span></div>
-        </div>
-        <a href="#callback" class="btn btn--outline btn--full">Подробнее</a>
-      </div>
-      <div class="crane-card">
-        <div class="crane-card__img"><img src="<?php echo get_template_directory_uri(); ?>/img/cranes/mobile-3.jpg" alt="КС-65740"></div>
-        <div class="crane-card__name">КС-65740</div>
-        <div class="crane-card__specs">
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Грузоподъемность:</span><span class="crane-card__spec-value">40 т</span></div>
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Макс. вылет:</span><span class="crane-card__spec-value">28 м</span></div>
-        </div>
-        <a href="#callback" class="btn btn--outline btn--full">Подробнее</a>
-      </div>
-      <div class="crane-card">
-        <div class="crane-card__img"><img src="<?php echo get_template_directory_uri(); ?>/img/cranes/mobile-4.jpg" alt="КС-80100"></div>
-        <div class="crane-card__name">КС-80100</div>
-        <div class="crane-card__specs">
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Грузоподъемность:</span><span class="crane-card__spec-value">70 т</span></div>
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Макс. вылет:</span><span class="crane-card__spec-value">36 м</span></div>
-        </div>
-        <a href="#callback" class="btn btn--outline btn--full">Подробнее</a>
-      </div>
+      <?php while ( $cranes->have_posts() ) : $cranes->the_post(); ?>
+        <?php get_template_part( 'template-parts/crane-card' ); ?>
+      <?php endwhile; ?>
     </div>
   </div>
 </section>
+
+<!-- Crane Details -->
+<?php
+$cranes->rewind_posts();
+$detail_index = 0;
+while ( $cranes->have_posts() ) : $cranes->the_post();
+    get_template_part( 'template-parts/crane-detail', null, array( 'index' => $detail_index ) );
+    $detail_index++;
+endwhile;
+wp_reset_postdata();
+?>
+
+<?php endif; ?>
 
 <!-- Pricing Table -->
 <section class="section section--gray">
@@ -84,11 +82,10 @@ get_header(); ?>
         </tr>
       </thead>
       <tbody>
-        <tr><td>16 тонн</td><td>от 800 BYN</td><td>от 120 BYN</td></tr>
-        <tr><td>25 тонн</td><td>от 1 100 BYN</td><td>от 160 BYN</td></tr>
-        <tr><td>40 тонн</td><td>от 1 500 BYN</td><td>от 220 BYN</td></tr>
-        <tr><td>70 тонн</td><td>от 2 500 BYN</td><td>от 350 BYN</td></tr>
-        <tr><td>100 тонн</td><td>от 3 500 BYN</td><td>от 500 BYN</td></tr>
+        <tr><td>100 тонн</td><td>от 2 360 BYN</td><td>от 295 BYN</td></tr>
+        <tr><td>80 тонн</td><td>от 1 840 BYN</td><td>от 230 BYN</td></tr>
+        <tr><td>50-60 тонн</td><td>от 1 320 BYN</td><td>от 165 BYN</td></tr>
+        <tr><td>25 тонн</td><td>от 800 BYN</td><td>от 100 BYN</td></tr>
       </tbody>
     </table>
   </div>
@@ -209,7 +206,7 @@ get_header(); ?>
 <!-- SEO Text -->
 <section class="seo-text">
   <div class="container">
-    <p><strong>Аренда автомобильных кранов</strong> — самый востребованный вид услуг в сфере грузоподъемных работ. Автокраны сочетают мобильность, универсальность и экономичность, что делает их незаменимыми для большинства строительных и монтажных задач. Наша компания предлагает современный парк автокранов грузоподъемностью от 16 до 100 тонн с опытными операторами и полным пакетом документов.</p>
+    <p><strong>Аренда автомобильных кранов</strong> — самый востребованный вид услуг в сфере грузоподъемных работ. Автокраны сочетают мобильность, универсальность и экономичность, что делает их незаменимыми для большинства строительных и монтажных задач. Наша компания предлагает современный парк автокранов грузоподъемностью от 25 до 100 тонн с опытными операторами и полным пакетом документов.</p>
   </div>
 </section>
 

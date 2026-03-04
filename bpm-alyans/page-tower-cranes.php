@@ -18,55 +18,49 @@ get_header(); ?>
   </div>
 </section>
 
+<?php
+$cranes = new WP_Query( array(
+    'post_type'      => 'crane',
+    'posts_per_page' => -1,
+    'tax_query'      => array(
+        array(
+            'taxonomy' => 'crane_type',
+            'field'    => 'slug',
+            'terms'    => 'tower',
+        ),
+    ),
+    'meta_key'       => 'crane_sort_order',
+    'orderby'        => 'meta_value_num',
+    'order'          => 'ASC',
+) );
+
+if ( $cranes->have_posts() ) : ?>
+
 <!-- Crane Fleet -->
 <section class="section">
   <div class="container">
     <h2 class="section-title">Парк башенных кранов</h2>
     <br>
     <div class="cranes-grid">
-      <div class="crane-card">
-        <div class="crane-card__img"><img src="<?php echo get_template_directory_uri(); ?>/img/cranes/tower-1.jpg" alt="КБ-403"></div>
-        <div class="crane-card__name">КБ-403</div>
-        <div class="crane-card__specs">
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Грузоподъемность:</span><span class="crane-card__spec-value">8 т</span></div>
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Вылет стрелы:</span><span class="crane-card__spec-value">30 м</span></div>
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Высота подъема:</span><span class="crane-card__spec-value">42 м</span></div>
-        </div>
-        <a href="#callback" class="btn btn--outline btn--full">Подробнее</a>
-      </div>
-      <div class="crane-card">
-        <div class="crane-card__img"><img src="<?php echo get_template_directory_uri(); ?>/img/cranes/tower-2.jpg" alt="КБ-503"></div>
-        <div class="crane-card__name">КБ-503</div>
-        <div class="crane-card__specs">
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Грузоподъемность:</span><span class="crane-card__spec-value">10 т</span></div>
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Вылет стрелы:</span><span class="crane-card__spec-value">35 м</span></div>
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Высота подъема:</span><span class="crane-card__spec-value">55 м</span></div>
-        </div>
-        <a href="#callback" class="btn btn--outline btn--full">Подробнее</a>
-      </div>
-      <div class="crane-card">
-        <div class="crane-card__img"><img src="<?php echo get_template_directory_uri(); ?>/img/cranes/tower-3.jpg" alt="КБ-674"></div>
-        <div class="crane-card__name">КБ-674</div>
-        <div class="crane-card__specs">
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Грузоподъемность:</span><span class="crane-card__spec-value">12 т</span></div>
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Вылет стрелы:</span><span class="crane-card__spec-value">40 м</span></div>
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Высота подъема:</span><span class="crane-card__spec-value">65 м</span></div>
-        </div>
-        <a href="#callback" class="btn btn--outline btn--full">Подробнее</a>
-      </div>
-      <div class="crane-card">
-        <div class="crane-card__img"><img src="<?php echo get_template_directory_uri(); ?>/img/cranes/tower-4.jpg" alt="Liebherr 280 EC-H"></div>
-        <div class="crane-card__name">Liebherr 280 EC-H</div>
-        <div class="crane-card__specs">
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Грузоподъемность:</span><span class="crane-card__spec-value">12 т</span></div>
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Вылет стрелы:</span><span class="crane-card__spec-value">50 м</span></div>
-          <div class="crane-card__spec"><span class="crane-card__spec-label">Высота подъема:</span><span class="crane-card__spec-value">75 м</span></div>
-        </div>
-        <a href="#callback" class="btn btn--outline btn--full">Подробнее</a>
-      </div>
+      <?php while ( $cranes->have_posts() ) : $cranes->the_post(); ?>
+        <?php get_template_part( 'template-parts/crane-card' ); ?>
+      <?php endwhile; ?>
     </div>
   </div>
 </section>
+
+<!-- Crane Details -->
+<?php
+$cranes->rewind_posts();
+$detail_index = 0;
+while ( $cranes->have_posts() ) : $cranes->the_post();
+    get_template_part( 'template-parts/crane-detail', null, array( 'index' => $detail_index ) );
+    $detail_index++;
+endwhile;
+wp_reset_postdata();
+?>
+
+<?php endif; ?>
 
 <!-- Price -->
 <section class="section section--gray">
@@ -108,6 +102,6 @@ get_header(); ?>
 <?php get_template_part( 'template-parts/contact-form' ); ?>
 
 <!-- SEO Text -->
-<section class="seo-text"><div class="container"><p><strong>Аренда башенных кранов в Минске</strong> — востребованная услуга для строительства многоэтажных жилых и коммерческих объектов. Мы предоставляем в аренду башенные краны грузоподъемностью до 12 тонн с полным комплексом услуг: монтаж, техническое обслуживание, демонтаж. Все краны проходят регулярное ТО и имеют необходимую документацию.</p></div></section>
+<section class="seo-text"><div class="container"><p><strong>Аренда башенных кранов в Минске и по всей Беларуси</strong> — востребованная услуга для строительства многоэтажных жилых и коммерческих объектов. Предоставляем в аренду башенные краны Raimondi MRT 180 и новый Zoomlion WA 6013-8 грузоподъемностью до 10 тонн, вылет стрелы до 60 м, высота подъема до 100 м. Полный комплекс услуг: монтаж, техническое обслуживание, демонтаж. Техника с экипажем, все необходимые лицензии и допуски.</p></div></section>
 
 <?php get_footer(); ?>
