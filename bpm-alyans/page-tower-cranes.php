@@ -12,8 +12,8 @@ get_header(); ?>
     <h1 class="page-hero__title">Аренда башенных кранов</h1>
     <p class="page-hero__text">Башенные краны различной грузоподъемности для строительства многоэтажных жилых и коммерческих объектов. Полный комплекс услуг: монтаж, обслуживание, демонтаж.</p>
     <div class="hero__buttons">
-      <a href="#callback" class="btn btn--primary btn--lg">Запросить консультацию</a>
-      <a href="<?php echo esc_url( home_url( '/contacts/' ) ); ?>" class="btn btn--outline-dark btn--lg" style="border-color:rgba(255,255,255,0.4);color:#fff;">Получить расчет</a>
+      <a href="#callback" class="btn btn--primary btn--lg">Оставить заявку</a>
+      <a href="#" class="btn btn--outline-dark btn--lg" style="border-color:rgba(255,255,255,0.4);color:#fff;" data-open-modal="calcModal">Рассчитать стоимость</a>
     </div>
   </div>
 </section>

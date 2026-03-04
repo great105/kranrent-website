@@ -105,6 +105,45 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
+// Lightbox for crane scheme images
+(function() {
+  var overlay = document.createElement('div');
+  overlay.className = 'lightbox-overlay';
+  overlay.innerHTML = '<button class="lightbox-overlay__close" aria-label="Закрыть">&times;</button><img src="" alt="">';
+  document.body.appendChild(overlay);
+
+  var lbImg = overlay.querySelector('img');
+  var lbClose = overlay.querySelector('.lightbox-overlay__close');
+
+  function openLightbox(src, alt) {
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  document.querySelectorAll('[data-lightbox]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      openLightbox(link.href, link.querySelector('img') ? link.querySelector('img').alt : '');
+    });
+  });
+
+  lbClose.addEventListener('click', closeLightbox);
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeLightbox();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) closeLightbox();
+  });
+})();
+
 // CF7: Pre-select service dropdown based on page body class
 document.addEventListener('DOMContentLoaded', function() {
   var select = document.querySelector('.wpcf7 select[name="service"]');

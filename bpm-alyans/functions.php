@@ -353,22 +353,38 @@ function bpm_crane_meta_box_html( $post ) {
     wp_nonce_field( 'bpm_crane_meta', 'bpm_crane_meta_nonce' );
 
     $fields = array(
-        'crane_capacity'     => array( 'label' => 'Грузоподъёмность', 'type' => 'text', 'placeholder' => '100 т' ),
+        '_section_photo'     => array( 'type' => 'section', 'label' => 'Фото крана', 'desc' => 'Основное фото крана задаётся через блок <strong>«Изображение записи»</strong> справа. Оно отображается в карточке крана и в подробном описании.' ),
+        '_section_specs'     => array( 'type' => 'section', 'label' => 'Технические характеристики' ),
+        'crane_capacity'     => array( 'label' => 'Грузоподъёмность', 'type' => 'text', 'placeholder' => '100 т', 'desc' => 'Отображается в карточке и в подробном описании' ),
         'crane_boom'         => array( 'label' => 'Вылет стрелы', 'type' => 'text', 'placeholder' => '60 м + гусёк 17,5 м' ),
         'crane_height'       => array( 'label' => 'Высота подъёма', 'type' => 'text', 'placeholder' => '37 м' ),
         'crane_manufacturer' => array( 'label' => 'Производитель', 'type' => 'text', 'placeholder' => 'Carlo Raimondi, Италия' ),
+        '_section_content'   => array( 'type' => 'section', 'label' => 'Описание и цена' ),
         'crane_description'  => array( 'label' => 'Описание крана', 'type' => 'textarea', 'placeholder' => 'Подробное описание...' ),
-        'crane_price'        => array( 'label' => 'Цена', 'type' => 'text', 'placeholder' => 'от 2 360 BYN/смена' ),
-        'crane_pdf'          => array( 'label' => 'PDF-спецификация (URL)', 'type' => 'file' ),
-        'crane_scheme_1'     => array( 'label' => 'Изображение схемы 1 (URL)', 'type' => 'image' ),
-        'crane_scheme_2'     => array( 'label' => 'Изображение схемы 2 (URL)', 'type' => 'image' ),
-        'crane_is_new'       => array( 'label' => 'Бейдж «Новый»', 'type' => 'checkbox' ),
-        'crane_anchor'       => array( 'label' => 'Якорь (ID для ссылки)', 'type' => 'text', 'placeholder' => 'sany-100t' ),
-        'crane_sort_order'   => array( 'label' => 'Порядок сортировки', 'type' => 'number', 'placeholder' => '0' ),
+        'crane_price'        => array( 'label' => 'Цена', 'type' => 'text', 'placeholder' => 'от 2 360 BYN/смена', 'desc' => 'Показывается в подробном описании крана' ),
+        '_section_media'     => array( 'type' => 'section', 'label' => 'Документы и схемы' ),
+        'crane_pdf'          => array( 'label' => 'PDF-спецификация', 'type' => 'file', 'desc' => 'Кнопка «Скачать PDF спецификацию» рядом с описанием крана' ),
+        'crane_scheme_1'     => array( 'label' => 'Схема грузоподъёмности 1', 'type' => 'image', 'desc' => 'Отображается как превью под описанием крана. По клику открывается в полном размере.' ),
+        'crane_scheme_2'     => array( 'label' => 'Схема грузоподъёмности 2', 'type' => 'image', 'desc' => 'Вторая схема (необязательно)' ),
+        '_section_settings'  => array( 'type' => 'section', 'label' => 'Настройки отображения' ),
+        'crane_is_new'       => array( 'label' => 'Бейдж «Новый»', 'type' => 'checkbox', 'desc' => 'Зелёный бейдж в карточке и заголовке' ),
+        'crane_anchor'       => array( 'label' => 'Якорь (ID для ссылки)', 'type' => 'text', 'placeholder' => 'sany-100t', 'desc' => 'Латиница, без пробелов. Используется для навигации: кнопка «Подробнее» ведёт к этому блоку' ),
+        'crane_sort_order'   => array( 'label' => 'Порядок сортировки', 'type' => 'number', 'placeholder' => '0', 'desc' => 'Чем меньше число, тем выше кран в списке' ),
     );
 
     echo '<table class="form-table"><tbody>';
     foreach ( $fields as $key => $field ) {
+        // Section header
+        if ( $field['type'] === 'section' ) {
+            echo '<tr><td colspan="2" style="padding: 12px 0 4px;">';
+            echo '<h3 style="margin:0; padding:8px 0; border-bottom:1px solid #ccd0d4; font-size:14px;">' . esc_html( $field['label'] ) . '</h3>';
+            if ( ! empty( $field['desc'] ) ) {
+                echo '<p class="description" style="margin-top:6px;">' . wp_kses_post( $field['desc'] ) . '</p>';
+            }
+            echo '</td></tr>';
+            continue;
+        }
+
         $value = get_post_meta( $post->ID, $key, true );
         echo '<tr><th><label for="' . esc_attr( $key ) . '">' . esc_html( $field['label'] ) . '</label></th><td>';
 
@@ -384,6 +400,10 @@ function bpm_crane_meta_box_html( $post ) {
             }
         } else {
             echo '<input type="' . esc_attr( $field['type'] ) . '" id="' . esc_attr( $key ) . '" name="' . esc_attr( $key ) . '" value="' . esc_attr( $value ) . '" style="width:100%;" placeholder="' . esc_attr( $field['placeholder'] ?? '' ) . '">';
+        }
+
+        if ( ! empty( $field['desc'] ) ) {
+            echo '<p class="description">' . esc_html( $field['desc'] ) . '</p>';
         }
 
         echo '</td></tr>';
@@ -460,6 +480,67 @@ function bpm_crane_admin_scripts( $hook ) {
     " );
 }
 add_action( 'admin_enqueue_scripts', 'bpm_crane_admin_scripts' );
+
+// === Admin Columns for Crane List ===
+function bpm_crane_admin_columns( $columns ) {
+    $new = array();
+    $new['cb']             = $columns['cb'];
+    $new['crane_thumb']    = 'Фото';
+    $new['title']          = $columns['title'];
+    $new['crane_type_col'] = 'Тип';
+    $new['crane_capacity'] = 'Грузоподъёмность';
+    $new['crane_new']      = 'Новый';
+    $new['crane_sort']     = 'Порядок';
+    $new['date']           = $columns['date'];
+    return $new;
+}
+add_filter( 'manage_crane_posts_columns', 'bpm_crane_admin_columns' );
+
+function bpm_crane_admin_column_data( $column, $post_id ) {
+    switch ( $column ) {
+        case 'crane_thumb':
+            if ( has_post_thumbnail( $post_id ) ) {
+                echo get_the_post_thumbnail( $post_id, array( 50, 50 ), array( 'style' => 'border-radius:4px;' ) );
+            } else {
+                echo '<span style="color:#999;">—</span>';
+            }
+            break;
+        case 'crane_type_col':
+            $terms = get_the_terms( $post_id, 'crane_type' );
+            echo $terms ? esc_html( implode( ', ', wp_list_pluck( $terms, 'name' ) ) ) : '—';
+            break;
+        case 'crane_capacity':
+            $v = get_post_meta( $post_id, 'crane_capacity', true );
+            echo $v ? esc_html( $v ) : '—';
+            break;
+        case 'crane_new':
+            echo get_post_meta( $post_id, 'crane_is_new', true ) === '1' ? '<span style="color:#22c55e;font-weight:600;">Да</span>' : '—';
+            break;
+        case 'crane_sort':
+            echo esc_html( get_post_meta( $post_id, 'crane_sort_order', true ) ?: '0' );
+            break;
+    }
+}
+add_action( 'manage_crane_posts_custom_column', 'bpm_crane_admin_column_data', 10, 2 );
+
+function bpm_crane_sortable_columns( $columns ) {
+    $columns['crane_sort']     = 'crane_sort_order';
+    $columns['crane_capacity'] = 'crane_capacity';
+    return $columns;
+}
+add_filter( 'manage_edit-crane_sortable_columns', 'bpm_crane_sortable_columns' );
+
+function bpm_crane_orderby( $query ) {
+    if ( ! is_admin() || ! $query->is_main_query() || $query->get( 'post_type' ) !== 'crane' ) {
+        return;
+    }
+    $orderby = $query->get( 'orderby' );
+    if ( $orderby === 'crane_sort_order' ) {
+        $query->set( 'meta_key', 'crane_sort_order' );
+        $query->set( 'orderby', 'meta_value_num' );
+    }
+}
+add_action( 'pre_get_posts', 'bpm_crane_orderby' );
 
 // === Flush rewrite rules on theme activation ===
 function bpm_rewrite_flush() {

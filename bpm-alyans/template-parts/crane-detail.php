@@ -35,7 +35,14 @@ $detail_id = $crane_anchor ? 'detail-' . $crane_anchor : 'detail-' . get_the_ID(
     <?php if ( $crane_manufacturer ) : ?>
       <p class="section-subtitle"><?php echo esc_html( $crane_manufacturer ); ?></p>
     <?php endif; ?>
+
     <div class="crane-detail">
+      <?php if ( has_post_thumbnail() ) : ?>
+        <div class="crane-detail__photo">
+          <?php the_post_thumbnail( 'medium_large', array( 'alt' => get_the_title() ) ); ?>
+        </div>
+      <?php endif; ?>
+
       <div class="crane-detail__info">
         <div class="crane-detail__specs-list">
           <?php if ( $crane_capacity ) : ?>
@@ -61,19 +68,33 @@ $detail_id = $crane_anchor ? 'detail-' . $crane_anchor : 'detail-' . get_the_ID(
           <?php if ( $crane_pdf ) : ?>
             <a href="<?php echo esc_url( $crane_pdf ); ?>" target="_blank" class="btn btn--outline">Скачать PDF спецификацию</a>
           <?php endif; ?>
-          <a href="#callback" class="btn btn--primary">Запросить стоимость</a>
+          <a href="#" class="btn btn--primary" data-open-modal="calcModal">Рассчитать стоимость</a>
         </div>
       </div>
-      <?php if ( $crane_scheme_1 || $crane_scheme_2 ) : ?>
-        <div class="crane-detail__images">
+    </div>
+
+    <?php if ( $crane_scheme_1 || $crane_scheme_2 ) : ?>
+      <div class="crane-detail__schemes">
+        <h3 class="crane-detail__schemes-title">Схемы грузоподъёмности</h3>
+        <div class="crane-detail__schemes-grid">
           <?php if ( $crane_scheme_1 ) : ?>
-            <img src="<?php echo esc_url( $crane_scheme_1 ); ?>" alt="<?php the_title_attribute(); ?> — схема">
+            <a href="<?php echo esc_url( $crane_scheme_1 ); ?>" class="crane-detail__scheme-thumb" data-lightbox>
+              <img src="<?php echo esc_url( $crane_scheme_1 ); ?>" alt="<?php the_title_attribute(); ?> — схема" loading="lazy">
+              <span class="crane-detail__scheme-zoom">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </span>
+            </a>
           <?php endif; ?>
           <?php if ( $crane_scheme_2 ) : ?>
-            <img src="<?php echo esc_url( $crane_scheme_2 ); ?>" alt="<?php the_title_attribute(); ?> — данные">
+            <a href="<?php echo esc_url( $crane_scheme_2 ); ?>" class="crane-detail__scheme-thumb" data-lightbox>
+              <img src="<?php echo esc_url( $crane_scheme_2 ); ?>" alt="<?php the_title_attribute(); ?> — данные" loading="lazy">
+              <span class="crane-detail__scheme-zoom">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </span>
+            </a>
           <?php endif; ?>
         </div>
-      <?php endif; ?>
-    </div>
+      </div>
+    <?php endif; ?>
   </div>
 </section>

@@ -18,8 +18,8 @@ get_header(); ?>
     <h1 class="page-hero__title">Аренда автомобильных кранов</h1>
     <p class="page-hero__text">Автокраны от 25 до 100 тонн с опытными операторами. Быстрая подача на объект, работа по всей Беларуси.</p>
     <div class="hero__buttons">
-      <a href="#callback" class="btn btn--primary btn--lg">Заказать автокран</a>
-      <a href="<?php echo esc_url( home_url( '/contacts/' ) ); ?>" class="btn btn--outline-dark btn--lg" style="border-color:rgba(255,255,255,0.4);color:#fff;">Получить консультацию</a>
+      <a href="#callback" class="btn btn--primary btn--lg">Оставить заявку</a>
+      <a href="#" class="btn btn--outline-dark btn--lg" style="border-color:rgba(255,255,255,0.4);color:#fff;" data-open-modal="calcModal">Рассчитать стоимость</a>
     </div>
   </div>
 </section>
