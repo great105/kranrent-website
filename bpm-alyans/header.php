@@ -60,7 +60,7 @@
       <a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="nav__link">О компании</a>
       <a href="<?php echo esc_url( home_url( '/contacts/' ) ); ?>" class="nav__link">Контакты</a>
     </nav>
-    <a href="<?php echo esc_url( home_url( '/contacts/' ) ); ?>" class="btn btn--primary header__cta">Рассчитать стоимость</a>
+    <a href="#callback" class="btn btn--primary header__cta">Рассчитать стоимость</a>
     <button class="burger" id="burgerBtn" aria-label="Меню">
       <span></span><span></span><span></span>
     </button>
@@ -83,5 +83,5 @@
   <a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="mobile-nav__link">О компании</a>
   <a href="<?php echo esc_url( home_url( '/contacts/' ) ); ?>" class="mobile-nav__link">Контакты</a>
   <br>
-  <a href="<?php echo esc_url( home_url( '/contacts/' ) ); ?>" class="btn btn--primary btn--full">Рассчитать стоимость</a>
+  <a href="#callback" class="btn btn--primary btn--full">Рассчитать стоимость</a>
 </div>
