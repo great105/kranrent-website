@@ -251,26 +251,181 @@ function bpm_customize_register( $wp_customize ) {
 }
 add_action( 'customize_register', 'bpm_customize_register' );
 
-// === SEO Meta Tags ===
+// === SEO: Default meta per page slug ===
+function bpm_get_seo_defaults() {
+    return array(
+        'front-page' => array(
+            'title' => 'Аренда башенных и автомобильных кранов в Минске и Беларуси | БПМ Альянс',
+            'description' => 'Аренда кранов с экипажем от БПМ Альянс. Башенные, автомобильные и гусеничные краны. Монтаж, обслуживание, проектирование. Опыт с 2007 года, работаем по всей Беларуси.',
+            'keywords' => 'аренда кранов Минск, аренда башенного крана, аренда автокрана Беларусь, гусеничный кран аренда, кран с экипажем, БПМ Альянс, монтаж крана',
+        ),
+        'tower-cranes' => array(
+            'title' => 'Аренда башенных кранов в Минске и Беларуси | БПМ Альянс',
+            'description' => 'Аренда башенных кранов с экипажем от БПМ Альянс. Raimondi MRT 180, Zoomlion WA 6013-8. Грузоподъёмность до 10 т, вылет стрелы до 60 м. Монтаж, обслуживание, ППРк.',
+            'keywords' => 'аренда башенного крана Минск, башенный кран аренда, Raimondi MRT 180, Zoomlion WA 6013, башенный кран с экипажем',
+        ),
+        'mobile-cranes' => array(
+            'title' => 'Аренда автомобильных кранов (автокранов) в Минске | БПМ Альянс',
+            'description' => 'Аренда автокранов от 25 до 100 тонн с опытными операторами. Быстрая подача на объект, работа по всей Беларуси. Цены от 800 BYN/смена.',
+            'keywords' => 'аренда автокрана Минск, автомобильный кран аренда, автокран 100 тонн, автокран 25 тонн, аренда автокрана цена',
+        ),
+        'crawler-cranes' => array(
+            'title' => 'Аренда гусеничных кранов в Минске и Беларуси | БПМ Альянс',
+            'description' => 'Аренда гусеничных кранов ДЭК 251 и RDK-25 грузоподъёмностью 25 тонн. Низкое давление на грунт, работа на сложных площадках. Доставка по Беларуси.',
+            'keywords' => 'аренда гусеничного крана Минск, гусеничный кран аренда, ДЭК 251, RDK-25, кран на гусеничном ходу',
+        ),
+        'installation' => array(
+            'title' => 'Монтаж башенных кранов и проектирование ППРк | БПМ Альянс',
+            'description' => 'Монтаж башенного крана за 1 день. Разработка ППРк, проектирование фундаментов, корректировка ПОС. Полный комплекс инженерных услуг в Минске и Беларуси.',
+            'keywords' => 'монтаж башенного крана, ППРк разработка, проектирование крана, монтаж крана Минск, демонтаж крана',
+        ),
+        'about' => array(
+            'title' => 'О компании БПМ Альянс | Аренда кранов с 2007 года',
+            'description' => 'ООО «БПМ Альянс» — аренда и эксплуатация кранов в Беларуси с 2007 года. Собственный парк техники, квалифицированные операторы, все лицензии и допуски.',
+            'keywords' => 'БПМ Альянс, аренда кранов Беларусь, компания аренда техники, о компании',
+        ),
+        'contacts' => array(
+            'title' => 'Контакты БПМ Альянс | Аренда кранов Минск',
+            'description' => 'Контакты ООО «БПМ Альянс»: +375 (44) 584-10-91, info@bpm-alyans.by. Минск, ул. Коммунистическая, д. 11, оф. 603. Работаем круглосуточно.',
+            'keywords' => 'БПМ Альянс контакты, аренда крана телефон, кран Минск контакты',
+        ),
+        'news' => array(
+            'title' => 'Новости компании БПМ Альянс | Аренда кранов',
+            'description' => 'Новости и события компании БПМ Альянс — аренда и эксплуатация кранов в Беларуси. Новая техника, проекты, отраслевые новости.',
+            'keywords' => 'БПМ Альянс новости, аренда кранов Беларусь новости',
+        ),
+    );
+}
+
+// === SEO Meta Tags (all pages) ===
 function bpm_seo_meta_tags() {
+    $defaults = bpm_get_seo_defaults();
+    $slug = '';
+    $description = '';
+    $keywords = '';
+    $og_title = '';
+    $og_description = '';
+    $canonical = '';
+
     if ( is_front_page() ) {
-        echo '<meta name="description" content="Аренда кранов с экипажем от БПМ Альянс. Опыт с 2007 года, работаем по всей Беларуси. Комплексно: управление, эксплуатация, проектирование и монтаж.">' . "\n";
-        echo '<meta name="keywords" content="аренда кранов в Беларуси, аренда башенного крана Минск, аренда автокрана, гусеничный кран в аренду, кран с экипажем, БПМ Альянс, аренда техники Беларусь, услуги крана, машинист крана">' . "\n";
-        echo '<meta property="og:url" content="https://bpm-alyans.by" />' . "\n";
-        echo '<meta property="og:title" content="Аренда и эксплуатация кранов в Беларуси - БПМ Альянс" />' . "\n";
-        echo '<meta property="og:description" content="С 2007 года оказываем услуги по аренде, управлению и эксплуатации башенных, автомобильных и гусеничных кранов по всей Беларуси. Техника с экипажем." />' . "\n";
+        $slug = 'front-page';
+        $canonical = home_url( '/' );
+    } elseif ( is_page() ) {
+        $slug = get_post_field( 'post_name', get_the_ID() );
+        $canonical = get_permalink();
+    } elseif ( is_post_type_archive( 'news' ) ) {
+        $slug = 'news';
+        $canonical = get_post_type_archive_link( 'news' );
+    } elseif ( is_singular( 'news' ) ) {
+        $description = get_the_excerpt() ?: wp_trim_words( get_the_content(), 25, '...' );
+        $og_title = get_the_title() . ' | БПМ Альянс';
+        $og_description = $description;
+        $canonical = get_permalink();
+        echo '<meta name="description" content="' . esc_attr( $description ) . '">' . "\n";
+        echo '<meta property="og:type" content="article" />' . "\n";
+        echo '<meta property="og:url" content="' . esc_url( $canonical ) . '" />' . "\n";
+        echo '<meta property="og:title" content="' . esc_attr( $og_title ) . '" />' . "\n";
+        echo '<meta property="og:description" content="' . esc_attr( $og_description ) . '" />' . "\n";
+        echo '<meta property="og:site_name" content="БПМ Альянс" />' . "\n";
+        echo '<link rel="canonical" href="' . esc_url( $canonical ) . '" />' . "\n";
+        return;
+    } else {
+        return;
+    }
+
+    // Get defaults for this slug
+    $def = isset( $defaults[ $slug ] ) ? $defaults[ $slug ] : array(
+        'title' => '',
+        'description' => '',
+        'keywords' => '',
+    );
+
+    // Check for admin-set overrides (page meta fields)
+    if ( is_page() || is_front_page() ) {
+        $custom_desc = get_post_meta( get_the_ID(), 'page_seo_description', true );
+        if ( $custom_desc ) {
+            $description = $custom_desc;
+        } else {
+            $description = $def['description'];
+        }
+    } else {
+        $description = $def['description'];
+    }
+
+    $keywords = $def['keywords'];
+    $og_title = ( is_page() || is_front_page() ) ? bpm_meta( 'page_seo_title', $def['title'] ) : $def['title'];
+    $og_description = $description;
+
+    if ( $description ) {
+        echo '<meta name="description" content="' . esc_attr( $description ) . '">' . "\n";
+    }
+    if ( $keywords ) {
+        echo '<meta name="keywords" content="' . esc_attr( $keywords ) . '">' . "\n";
+    }
+
+    // Open Graph
+    echo '<meta property="og:type" content="website" />' . "\n";
+    if ( $canonical ) {
+        echo '<meta property="og:url" content="' . esc_url( $canonical ) . '" />' . "\n";
+    }
+    if ( $og_title ) {
+        echo '<meta property="og:title" content="' . esc_attr( $og_title ) . '" />' . "\n";
+    }
+    if ( $og_description ) {
+        echo '<meta property="og:description" content="' . esc_attr( $og_description ) . '" />' . "\n";
+    }
+    echo '<meta property="og:site_name" content="БПМ Альянс" />' . "\n";
+    echo '<meta property="og:locale" content="ru_RU" />' . "\n";
+
+    // Canonical
+    if ( $canonical ) {
+        echo '<link rel="canonical" href="' . esc_url( $canonical ) . '" />' . "\n";
     }
 }
 add_action( 'wp_head', 'bpm_seo_meta_tags', 1 );
 
-// === Custom document title for front page ===
+// === Custom document title (all pages) ===
 function bpm_custom_title( $title ) {
+    $defaults = bpm_get_seo_defaults();
+
     if ( is_front_page() ) {
-        $title['title'] = 'Аренда башенных и автомобильных кранов в Беларуси';
+        $custom = get_post_meta( get_the_ID(), 'page_seo_title', true );
+        $title['title'] = $custom ?: $defaults['front-page']['title'];
+        unset( $title['site'] );
+        unset( $title['tagline'] );
+        return $title;
     }
+
+    if ( is_page() ) {
+        $slug = get_post_field( 'post_name', get_the_ID() );
+        $custom = get_post_meta( get_the_ID(), 'page_seo_title', true );
+        if ( $custom ) {
+            $title['title'] = $custom;
+            unset( $title['site'] );
+            return $title;
+        }
+        if ( isset( $defaults[ $slug ] ) ) {
+            $title['title'] = $defaults[ $slug ]['title'];
+            unset( $title['site'] );
+            return $title;
+        }
+    }
+
+    if ( is_post_type_archive( 'news' ) ) {
+        $title['title'] = $defaults['news']['title'];
+        unset( $title['site'] );
+        return $title;
+    }
+
     return $title;
 }
 add_filter( 'document_title_parts', 'bpm_custom_title' );
+
+// Remove WP default separator
+function bpm_title_separator( $sep ) {
+    return '|';
+}
+add_filter( 'document_title_separator', 'bpm_title_separator' );
 
 // === Disable Contact Form 7 CSS ===
 add_filter( 'wpcf7_load_css', '__return_false' );
@@ -552,6 +707,116 @@ function bpm_rewrite_flush() {
 }
 add_action( 'after_switch_theme', 'bpm_rewrite_flush' );
 
+// === XML Sitemap ===
+function bpm_sitemap_rewrite_rules( $rules ) {
+    $new_rules = array( 'sitemap\.xml$' => 'index.php?bpm_sitemap=1' );
+    return $new_rules + $rules;
+}
+add_filter( 'rewrite_rules_array', 'bpm_sitemap_rewrite_rules' );
+
+function bpm_sitemap_query_vars( $vars ) {
+    $vars[] = 'bpm_sitemap';
+    return $vars;
+}
+add_filter( 'query_vars', 'bpm_sitemap_query_vars' );
+
+function bpm_sitemap_template() {
+    if ( ! get_query_var( 'bpm_sitemap' ) ) {
+        return;
+    }
+
+    header( 'Content-Type: application/xml; charset=UTF-8' );
+    echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+
+    // Front page
+    echo '<url><loc>' . esc_url( home_url( '/' ) ) . '</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>' . "\n";
+
+    // Static pages
+    $pages = get_posts( array(
+        'post_type'   => 'page',
+        'post_status' => 'publish',
+        'numberposts' => -1,
+    ) );
+    foreach ( $pages as $page ) {
+        if ( $page->ID == get_option( 'page_on_front' ) ) continue;
+        $mod = get_the_modified_date( 'Y-m-d', $page );
+        echo '<url><loc>' . esc_url( get_permalink( $page ) ) . '</loc><lastmod>' . $mod . '</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>' . "\n";
+    }
+
+    // News archive
+    echo '<url><loc>' . esc_url( get_post_type_archive_link( 'news' ) ) . '</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>' . "\n";
+
+    // News posts
+    $news = get_posts( array(
+        'post_type'   => 'news',
+        'post_status' => 'publish',
+        'numberposts' => 100,
+    ) );
+    foreach ( $news as $post ) {
+        $mod = get_the_modified_date( 'Y-m-d', $post );
+        echo '<url><loc>' . esc_url( get_permalink( $post ) ) . '</loc><lastmod>' . $mod . '</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>' . "\n";
+    }
+
+    echo '</urlset>';
+    exit;
+}
+add_action( 'template_redirect', 'bpm_sitemap_template' );
+
+// === Robots.txt — add sitemap ===
+function bpm_robots_txt( $output, $public ) {
+    if ( $public ) {
+        $output .= "\nSitemap: " . home_url( '/sitemap.xml' ) . "\n";
+    }
+    return $output;
+}
+add_filter( 'robots_txt', 'bpm_robots_txt', 10, 2 );
+
+// === Schema.org LocalBusiness JSON-LD ===
+function bpm_schema_jsonld() {
+    if ( is_admin() ) return;
+
+    $schema = array(
+        '@context' => 'https://schema.org',
+        '@type' => 'LocalBusiness',
+        'name' => 'БПМ Альянс',
+        'description' => 'Аренда и эксплуатация башенных, автомобильных и гусеничных кранов в Минске и по всей Беларуси с 2007 года.',
+        'url' => home_url( '/' ),
+        'telephone' => get_theme_mod( 'bpm_phone', '+375 (44) 584-10-91' ),
+        'email' => get_theme_mod( 'bpm_email', 'info@bpm-alyans.by' ),
+        'address' => array(
+            '@type' => 'PostalAddress',
+            'streetAddress' => 'ул. Коммунистическая, д. 11, оф. 603',
+            'addressLocality' => 'Минск',
+            'postalCode' => '220029',
+            'addressCountry' => 'BY',
+        ),
+        'geo' => array(
+            '@type' => 'GeoCoordinates',
+            'latitude' => '53.9006',
+            'longitude' => '27.5590',
+        ),
+        'openingHours' => 'Mo-Su 00:00-23:59',
+        'priceRange' => 'от 800 BYN',
+        'areaServed' => array(
+            '@type' => 'Country',
+            'name' => 'Беларусь',
+        ),
+        'serviceType' => array(
+            'Аренда башенных кранов',
+            'Аренда автомобильных кранов',
+            'Аренда гусеничных кранов',
+            'Монтаж и демонтаж кранов',
+            'Проектирование ППРк',
+        ),
+    );
+
+    echo '<script type="application/ld+json">' . "\n";
+    echo wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT );
+    echo "\n</script>\n";
+}
+add_action( 'wp_head', 'bpm_schema_jsonld', 99 );
+
 // === Page Content Meta Fields ===
 
 /**
@@ -658,8 +923,10 @@ function bpm_page_content_meta_box_html( $post ) {
         'page_faq_a_6' => array( 'label' => 'Ответ 6', 'type' => 'textarea', 'placeholder' => '' ),
 
         // SEO
-        array( 'type' => 'section', 'label' => 'SEO-текст' ),
-        'page_seo_text' => array( 'label' => 'SEO-текст (HTML допустим)', 'type' => 'textarea', 'placeholder' => '', 'desc' => 'Текст в подвале страницы. Можно использовать &lt;strong&gt; для выделения.' ),
+        array( 'type' => 'section', 'label' => 'SEO' ),
+        'page_seo_title'       => array( 'label' => 'SEO Title (тег &lt;title&gt;)', 'type' => 'text', 'placeholder' => 'Аренда башенных кранов в Минске | БПМ Альянс', 'desc' => 'Заголовок вкладки браузера и поисковой выдачи. До 60 символов. Если пусто — генерируется автоматически.' ),
+        'page_seo_description' => array( 'label' => 'Meta Description', 'type' => 'textarea', 'placeholder' => 'Аренда башенных кранов с экипажем в Минске и Беларуси...', 'desc' => 'Описание для поисковых систем. До 160 символов. Если пусто — генерируется автоматически.' ),
+        'page_seo_text' => array( 'label' => 'SEO-текст на странице (HTML допустим)', 'type' => 'textarea', 'placeholder' => '', 'desc' => 'Текст в подвале страницы. Можно использовать &lt;strong&gt; для выделения.' ),
 
         // Extra content (for installation page etc.)
         array( 'type' => 'section', 'label' => 'Дополнительный контент' ),
@@ -726,6 +993,7 @@ function bpm_save_page_content_meta( $post_id ) {
         'page_req_col1_title', 'page_req_col2_title',
         'page_faq_q_1', 'page_faq_q_2', 'page_faq_q_3',
         'page_faq_q_4', 'page_faq_q_5', 'page_faq_q_6',
+        'page_seo_title',
     );
 
     $textarea_fields = array(
@@ -735,7 +1003,7 @@ function bpm_save_page_content_meta( $post_id ) {
         'page_req_col1_items', 'page_req_col2_items',
         'page_faq_a_1', 'page_faq_a_2', 'page_faq_a_3',
         'page_faq_a_4', 'page_faq_a_5', 'page_faq_a_6',
-        'page_seo_text',
+        'page_seo_description', 'page_seo_text',
         'page_extra_text_1', 'page_extra_text_2', 'page_extra_highlight',
     );
 
