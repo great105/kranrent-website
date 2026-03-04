@@ -707,6 +707,9 @@ function bpm_rewrite_flush() {
 }
 add_action( 'after_switch_theme', 'bpm_rewrite_flush' );
 
+// === Disable WP default sitemap (we have our own) ===
+add_filter( 'wp_sitemaps_enabled', '__return_false' );
+
 // === XML Sitemap ===
 function bpm_sitemap_rewrite_rules( $rules ) {
     $new_rules = array( 'sitemap\.xml$' => 'index.php?bpm_sitemap=1' );
@@ -740,6 +743,7 @@ function bpm_sitemap_template() {
     ) );
     foreach ( $pages as $page ) {
         if ( $page->ID == get_option( 'page_on_front' ) ) continue;
+        if ( $page->post_name === 'news' ) continue; // skip — handled as CPT archive
         $mod = get_the_modified_date( 'Y-m-d', $page );
         echo '<url><loc>' . esc_url( get_permalink( $page ) ) . '</loc><lastmod>' . $mod . '</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>' . "\n";
     }
