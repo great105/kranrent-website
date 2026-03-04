@@ -551,3 +551,243 @@ function bpm_rewrite_flush() {
     flush_rewrite_rules();
 }
 add_action( 'after_switch_theme', 'bpm_rewrite_flush' );
+
+// === Page Content Meta Fields ===
+
+/**
+ * Helper: get meta field with fallback default.
+ */
+function bpm_meta( $key, $default = '', $post_id = null ) {
+    if ( ! $post_id ) {
+        $post_id = get_the_ID();
+    }
+    $value = get_post_meta( $post_id, $key, true );
+    return ( $value !== '' && $value !== false ) ? $value : $default;
+}
+
+/**
+ * Helper: parse textarea into array of lines (trimmed, empty removed).
+ * Format "Title|Description" for paired data.
+ */
+function bpm_parse_lines( $text ) {
+    if ( empty( $text ) ) {
+        return array();
+    }
+    $lines = explode( "\n", $text );
+    $result = array();
+    foreach ( $lines as $line ) {
+        $line = trim( $line );
+        if ( $line !== '' ) {
+            $result[] = $line;
+        }
+    }
+    return $result;
+}
+
+/**
+ * Register meta box for all pages.
+ */
+function bpm_page_content_meta_boxes() {
+    add_meta_box(
+        'bpm_page_content',
+        'Содержимое страницы',
+        'bpm_page_content_meta_box_html',
+        'page',
+        'normal',
+        'high'
+    );
+}
+add_action( 'add_meta_boxes', 'bpm_page_content_meta_boxes' );
+
+/**
+ * Render page content meta box.
+ */
+function bpm_page_content_meta_box_html( $post ) {
+    wp_nonce_field( 'bpm_page_content_meta', 'bpm_page_content_nonce' );
+
+    $sections = array(
+        // Hero
+        array( 'type' => 'section', 'label' => 'Hero-секция' ),
+        'page_hero_title' => array( 'label' => 'Заголовок Hero', 'type' => 'text', 'placeholder' => 'Главный заголовок страницы' ),
+        'page_hero_text'  => array( 'label' => 'Текст Hero', 'type' => 'textarea', 'placeholder' => 'Подзаголовок / описание' ),
+        'page_hero_bg'    => array( 'label' => 'Фон Hero (URL изображения)', 'type' => 'image', 'placeholder' => '' ),
+
+        // Pricing
+        array( 'type' => 'section', 'label' => 'Цены' ),
+        'page_pricing_intro'   => array( 'label' => 'Вводный текст цен', 'type' => 'text', 'placeholder' => 'Стоимость аренды рассчитывается индивидуально...' ),
+        'page_pricing_factors' => array( 'label' => 'Ценовые факторы', 'type' => 'textarea', 'placeholder' => "Заголовок|Описание\nЗаголовок|Описание", 'desc' => 'По одному на строку. Формат: Заголовок|Описание (описание необязательно)' ),
+        'page_price_amount'    => array( 'label' => 'Цена (крупно)', 'type' => 'text', 'placeholder' => 'от 15 000 BYN/мес' ),
+        'page_price_note'      => array( 'label' => 'Примечание к цене', 'type' => 'text', 'placeholder' => '+ монтаж/демонтаж' ),
+        'page_pricing_table'   => array( 'label' => 'Таблица цен', 'type' => 'textarea', 'placeholder' => "Модель|Смена|Час\n100 тонн|от 2 360 BYN|от 295 BYN", 'desc' => 'По одной строке на ряд. Формат: Модель|Смена|Час' ),
+
+        // Conditions
+        array( 'type' => 'section', 'label' => 'Условия аренды' ),
+        'page_conditions' => array( 'label' => 'Условия', 'type' => 'textarea', 'placeholder' => "Минимальный срок аренды — 1 месяц\nВ стоимость входит: кран, оператор", 'desc' => 'По одному пункту на строку' ),
+
+        // Steps
+        array( 'type' => 'section', 'label' => 'Этапы работы' ),
+        'page_step_1_title' => array( 'label' => 'Шаг 1 — заголовок', 'type' => 'text', 'placeholder' => 'Заявка' ),
+        'page_step_1_text'  => array( 'label' => 'Шаг 1 — текст', 'type' => 'text', 'placeholder' => 'Вы оставляете заявку...' ),
+        'page_step_2_title' => array( 'label' => 'Шаг 2 — заголовок', 'type' => 'text', 'placeholder' => 'Консультация' ),
+        'page_step_2_text'  => array( 'label' => 'Шаг 2 — текст', 'type' => 'text', 'placeholder' => 'Наш специалист поможет...' ),
+        'page_step_3_title' => array( 'label' => 'Шаг 3 — заголовок', 'type' => 'text', 'placeholder' => 'Расчет' ),
+        'page_step_3_text'  => array( 'label' => 'Шаг 3 — текст', 'type' => 'text', 'placeholder' => 'Рассчитываем стоимость...' ),
+        'page_step_4_title' => array( 'label' => 'Шаг 4 — заголовок', 'type' => 'text', 'placeholder' => 'Работа' ),
+        'page_step_4_text'  => array( 'label' => 'Шаг 4 — текст', 'type' => 'text', 'placeholder' => 'Доставляем технику...' ),
+
+        // Requirements
+        array( 'type' => 'section', 'label' => 'Требования к площадке' ),
+        'page_req_col1_title' => array( 'label' => 'Колонка 1 — заголовок', 'type' => 'text', 'placeholder' => 'Подготовка площадки:' ),
+        'page_req_col1_items' => array( 'label' => 'Колонка 1 — пункты', 'type' => 'textarea', 'placeholder' => "Подготовленный фундамент\nГрунт с несущей способностью", 'desc' => 'По одному пункту на строку' ),
+        'page_req_col2_title' => array( 'label' => 'Колонка 2 — заголовок', 'type' => 'text', 'placeholder' => 'Безопасность:' ),
+        'page_req_col2_items' => array( 'label' => 'Колонка 2 — пункты', 'type' => 'textarea', 'placeholder' => "Отсутствие ЛЭП\nОграждение опасной зоны", 'desc' => 'По одному пункту на строку' ),
+
+        // FAQ
+        array( 'type' => 'section', 'label' => 'FAQ (вопросы и ответы)' ),
+        'page_faq_q_1' => array( 'label' => 'Вопрос 1', 'type' => 'text', 'placeholder' => '' ),
+        'page_faq_a_1' => array( 'label' => 'Ответ 1', 'type' => 'textarea', 'placeholder' => '' ),
+        'page_faq_q_2' => array( 'label' => 'Вопрос 2', 'type' => 'text', 'placeholder' => '' ),
+        'page_faq_a_2' => array( 'label' => 'Ответ 2', 'type' => 'textarea', 'placeholder' => '' ),
+        'page_faq_q_3' => array( 'label' => 'Вопрос 3', 'type' => 'text', 'placeholder' => '' ),
+        'page_faq_a_3' => array( 'label' => 'Ответ 3', 'type' => 'textarea', 'placeholder' => '' ),
+        'page_faq_q_4' => array( 'label' => 'Вопрос 4', 'type' => 'text', 'placeholder' => '' ),
+        'page_faq_a_4' => array( 'label' => 'Ответ 4', 'type' => 'textarea', 'placeholder' => '' ),
+        'page_faq_q_5' => array( 'label' => 'Вопрос 5', 'type' => 'text', 'placeholder' => '' ),
+        'page_faq_a_5' => array( 'label' => 'Ответ 5', 'type' => 'textarea', 'placeholder' => '' ),
+        'page_faq_q_6' => array( 'label' => 'Вопрос 6', 'type' => 'text', 'placeholder' => '' ),
+        'page_faq_a_6' => array( 'label' => 'Ответ 6', 'type' => 'textarea', 'placeholder' => '' ),
+
+        // SEO
+        array( 'type' => 'section', 'label' => 'SEO-текст' ),
+        'page_seo_text' => array( 'label' => 'SEO-текст (HTML допустим)', 'type' => 'textarea', 'placeholder' => '', 'desc' => 'Текст в подвале страницы. Можно использовать &lt;strong&gt; для выделения.' ),
+
+        // Extra content (for installation page etc.)
+        array( 'type' => 'section', 'label' => 'Дополнительный контент' ),
+        'page_extra_text_1'     => array( 'label' => 'Доп. текстовый блок 1', 'type' => 'textarea', 'placeholder' => '', 'desc' => 'Используется на странице монтажа (раздел «Монтаж и эксплуатация»)' ),
+        'page_extra_text_2'     => array( 'label' => 'Доп. текстовый блок 2', 'type' => 'textarea', 'placeholder' => '', 'desc' => 'Используется на странице монтажа (раздел «Проектные работы»)' ),
+        'page_extra_highlight'  => array( 'label' => 'Выделенный блок', 'type' => 'textarea', 'placeholder' => '', 'desc' => 'Ключевое отличие / важная информация' ),
+    );
+
+    echo '<table class="form-table"><tbody>';
+    foreach ( $sections as $key => $field ) {
+        // Section header
+        if ( isset( $field['type'] ) && $field['type'] === 'section' ) {
+            echo '<tr><td colspan="2" style="padding: 12px 0 4px;">';
+            echo '<h3 style="margin:0; padding:8px 0; border-bottom:1px solid #ccd0d4; font-size:14px;">' . esc_html( $field['label'] ) . '</h3>';
+            echo '</td></tr>';
+            continue;
+        }
+
+        $value = get_post_meta( $post->ID, $key, true );
+        echo '<tr><th><label for="' . esc_attr( $key ) . '">' . esc_html( $field['label'] ) . '</label></th><td>';
+
+        if ( $field['type'] === 'textarea' ) {
+            echo '<textarea id="' . esc_attr( $key ) . '" name="' . esc_attr( $key ) . '" rows="4" style="width:100%;" placeholder="' . esc_attr( $field['placeholder'] ?? '' ) . '">' . esc_textarea( $value ) . '</textarea>';
+        } elseif ( $field['type'] === 'image' ) {
+            echo '<input type="text" id="' . esc_attr( $key ) . '" name="' . esc_attr( $key ) . '" value="' . esc_attr( $value ) . '" style="width:70%;" placeholder="' . esc_attr( $field['placeholder'] ?? '' ) . '">';
+            echo ' <button type="button" class="button bpm-media-upload" data-target="' . esc_attr( $key ) . '">Выбрать изображение</button>';
+            if ( $value ) {
+                echo '<br><img src="' . esc_url( $value ) . '" style="max-width:200px;margin-top:8px;">';
+            }
+        } else {
+            echo '<input type="text" id="' . esc_attr( $key ) . '" name="' . esc_attr( $key ) . '" value="' . esc_attr( $value ) . '" style="width:100%;" placeholder="' . esc_attr( $field['placeholder'] ?? '' ) . '">';
+        }
+
+        if ( ! empty( $field['desc'] ) ) {
+            echo '<p class="description">' . wp_kses_post( $field['desc'] ) . '</p>';
+        }
+
+        echo '</td></tr>';
+    }
+    echo '</tbody></table>';
+}
+
+/**
+ * Save page content meta fields.
+ */
+function bpm_save_page_content_meta( $post_id ) {
+    if ( ! isset( $_POST['bpm_page_content_nonce'] ) || ! wp_verify_nonce( $_POST['bpm_page_content_nonce'], 'bpm_page_content_meta' ) ) {
+        return;
+    }
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+        return;
+    }
+
+    $text_fields = array(
+        'page_hero_title',
+        'page_pricing_intro', 'page_price_amount', 'page_price_note',
+        'page_step_1_title', 'page_step_1_text',
+        'page_step_2_title', 'page_step_2_text',
+        'page_step_3_title', 'page_step_3_text',
+        'page_step_4_title', 'page_step_4_text',
+        'page_req_col1_title', 'page_req_col2_title',
+        'page_faq_q_1', 'page_faq_q_2', 'page_faq_q_3',
+        'page_faq_q_4', 'page_faq_q_5', 'page_faq_q_6',
+    );
+
+    $textarea_fields = array(
+        'page_hero_text',
+        'page_pricing_factors', 'page_pricing_table',
+        'page_conditions',
+        'page_req_col1_items', 'page_req_col2_items',
+        'page_faq_a_1', 'page_faq_a_2', 'page_faq_a_3',
+        'page_faq_a_4', 'page_faq_a_5', 'page_faq_a_6',
+        'page_seo_text',
+        'page_extra_text_1', 'page_extra_text_2', 'page_extra_highlight',
+    );
+
+    $url_fields = array( 'page_hero_bg' );
+
+    foreach ( $text_fields as $key ) {
+        if ( isset( $_POST[ $key ] ) ) {
+            update_post_meta( $post_id, $key, sanitize_text_field( $_POST[ $key ] ) );
+        }
+    }
+
+    foreach ( $textarea_fields as $key ) {
+        if ( isset( $_POST[ $key ] ) ) {
+            update_post_meta( $post_id, $key, sanitize_textarea_field( $_POST[ $key ] ) );
+        }
+    }
+
+    foreach ( $url_fields as $key ) {
+        if ( isset( $_POST[ $key ] ) ) {
+            update_post_meta( $post_id, $key, esc_url_raw( $_POST[ $key ] ) );
+        }
+    }
+}
+add_action( 'save_post_page', 'bpm_save_page_content_meta' );
+
+/**
+ * Enqueue media uploader for page meta box.
+ */
+function bpm_page_admin_scripts( $hook ) {
+    global $post_type;
+    if ( $post_type !== 'page' || ! in_array( $hook, array( 'post.php', 'post-new.php' ) ) ) {
+        return;
+    }
+    wp_enqueue_media();
+    wp_add_inline_script( 'jquery-core', "
+        jQuery(document).ready(function($){
+            $('#bpm_page_content').on('click', '.bpm-media-upload', function(e){
+                e.preventDefault();
+                var button = $(this);
+                var targetId = button.data('target');
+                var frame = wp.media({ multiple: false });
+                frame.on('select', function(){
+                    var attachment = frame.state().get('selection').first().toJSON();
+                    $('#' + targetId).val(attachment.url);
+                    button.siblings('img').remove();
+                    if (attachment.type === 'image') {
+                        button.after('<br><img src=\"' + attachment.url + '\" style=\"max-width:200px;margin-top:8px;\">');
+                    }
+                });
+                frame.open();
+            });
+        });
+    " );
+}
+add_action( 'admin_enqueue_scripts', 'bpm_page_admin_scripts' );

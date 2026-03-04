@@ -6,10 +6,15 @@ get_header(); ?>
 
 <div class="breadcrumbs"><div class="container"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Главная</a><span>&gt;</span><a href="#">Услуги</a><span>&gt;</span>Монтаж и проектирование</div></div>
 
-<section class="page-hero" style="background-image: url('<?php echo get_template_directory_uri(); ?>/img/hero-bg2.jpg');">
+<?php
+$hero_title = bpm_meta( 'page_hero_title', 'Монтаж и проектирование' );
+$hero_text  = bpm_meta( 'page_hero_text', 'Полный комплекс инженерных услуг: монтаж башенного крана за 1 день, разработка ППРк, проектирование фундаментов, изготовление и корректировка ПОС.' );
+$hero_bg    = bpm_meta( 'page_hero_bg', get_template_directory_uri() . '/img/hero-bg2.jpg' );
+?>
+<section class="page-hero" style="background-image: url('<?php echo esc_url( $hero_bg ); ?>');">
   <div class="container">
-    <h1 class="page-hero__title">Монтаж и проектирование</h1>
-    <p class="page-hero__text">Полный комплекс инженерных услуг: монтаж башенного крана за 1 день, разработка ППРк, проектирование фундаментов, изготовление и корректировка ПОС.</p>
+    <h1 class="page-hero__title"><?php echo esc_html( $hero_title ); ?></h1>
+    <p class="page-hero__text"><?php echo esc_html( $hero_text ); ?></p>
     <div class="hero__buttons">
       <a href="#callback" class="btn btn--primary btn--lg">Оставить заявку</a>
       <a href="#" class="btn btn--outline-dark btn--lg" style="border-color:rgba(255,255,255,0.4);color:#fff;" data-open-modal="calcModal">Рассчитать стоимость</a>
@@ -17,6 +22,20 @@ get_header(); ?>
   </div>
 </section>
 
+<?php
+$extra_text_1_default = '<p class="crane-detail__text">БПМ Альянс выполняет <strong>монтаж башенного крана за 1 световой день</strong> (до высоты свободностоящего крана), независимо от условий строительной площадки — это ключевое преимущество, которое выделяет нас среди конкурентов.</p>
+<p class="crane-detail__text">Работа выполняется высококвалифицированными специалистами, включая пусконаладочные работы после монтажа башенного крана, наращивания высоты крана с помощью монтажной обоймы и его крепления к зданию.</p>
+<p class="crane-detail__text"><strong>Монтаж за 1 день</strong> снижает стоимость работ и позволяет заказчику приступить к строительству уже на следующий день, что экономит время и бюджет.</p>';
+$extra_text_1_raw = get_post_meta( get_the_ID(), 'page_extra_text_1', true );
+if ( $extra_text_1_raw ) {
+    $extra_text_1 = '';
+    foreach ( bpm_parse_lines( $extra_text_1_raw ) as $line ) {
+        $extra_text_1 .= '<p class="crane-detail__text">' . wp_kses_post( $line ) . '</p>';
+    }
+} else {
+    $extra_text_1 = $extra_text_1_default;
+}
+?>
 <!-- Монтаж и эксплуатация -->
 <section class="section">
   <div class="container">
@@ -24,9 +43,7 @@ get_header(); ?>
     <br>
     <div class="two-col-info">
       <div class="two-col-info__col" style="flex:1.2;">
-        <p class="crane-detail__text">БПМ Альянс выполняет <strong>монтаж башенного крана за 1 световой день</strong> (до высоты свободностоящего крана), независимо от условий строительной площадки — это ключевое преимущество, которое выделяет нас среди конкурентов.</p>
-        <p class="crane-detail__text">Работа выполняется высококвалифицированными специалистами, включая пусконаладочные работы после монтажа башенного крана, наращивания высоты крана с помощью монтажной обоймы и его крепления к зданию.</p>
-        <p class="crane-detail__text"><strong>Монтаж за 1 день</strong> снижает стоимость работ и позволяет заказчику приступить к строительству уже на следующий день, что экономит время и бюджет.</p>
+        <?php echo $extra_text_1; ?>
       </div>
       <div class="two-col-info__col">
         <div class="crane-detail__specs-list">
@@ -71,13 +88,25 @@ get_header(); ?>
   </div>
 </section>
 
+<?php
+$extra_text_2_default = '<p class="crane-detail__text">Сегодня на стройках приоритетным для заказчика является полный спектр услуг: помимо аренды и монтажа крана, обязательная разработка <strong>ППРк</strong> (проекта производства работ краном), проектирование фундаментной площадки под кран, а также изготовление или внесение изменений в <strong>ПОС</strong> (проект организации строительства).</p>
+<p class="crane-detail__text">Наши специалисты выполнят весь комплекс проектных работ, необходимых для монтажа и эксплуатации любого вида крана, включая автокран грузоподъемностью 100 тонн.</p>';
+$extra_text_2_raw = get_post_meta( get_the_ID(), 'page_extra_text_2', true );
+if ( $extra_text_2_raw ) {
+    $extra_text_2 = '';
+    foreach ( bpm_parse_lines( $extra_text_2_raw ) as $line ) {
+        $extra_text_2 .= '<p class="crane-detail__text">' . wp_kses_post( $line ) . '</p>';
+    }
+} else {
+    $extra_text_2 = $extra_text_2_default;
+}
+?>
 <!-- Проектные работы -->
 <section class="section">
   <div class="container">
     <h2 class="section-title">Проектные работы</h2>
     <br>
-    <p class="crane-detail__text">Сегодня на стройках приоритетным для заказчика является полный спектр услуг: помимо аренды и монтажа крана, обязательная разработка <strong>ППРк</strong> (проекта производства работ краном), проектирование фундаментной площадки под кран, а также изготовление или внесение изменений в <strong>ПОС</strong> (проект организации строительства).</p>
-    <p class="crane-detail__text">Наши специалисты выполнят весь комплекс проектных работ, необходимых для монтажа и эксплуатации любого вида крана, включая автокран грузоподъемностью 100 тонн.</p>
+    <?php echo $extra_text_2; ?>
     <br>
     <div class="eng-grid">
       <div class="eng-card">
@@ -114,26 +143,43 @@ get_header(); ?>
   </div>
 </section>
 
+<?php
+$extra_highlight = bpm_meta( 'page_extra_highlight', 'Когда эксплуатация башенных кранов невозможна без изготовления ППРк, мы обеспечим выезд <strong>100-тонного автомобильного крана с готовым проектом производства работ</strong>, изготовленным нашей компанией в кратчайший срок. Полный цикл: проект + техника + экипаж.' );
+?>
 <!-- Ключевое отличие -->
 <section class="section section--gray">
   <div class="container">
     <div class="pricing-factors" style="border-left:4px solid var(--orange);padding-left:24px;">
       <p class="pricing-factors__title" style="font-size:18px;font-weight:700;color:var(--dark);">Ключевое отличие БПМ Альянс</p>
-      <p class="crane-detail__text" style="margin-top:12px;">Когда эксплуатация башенных кранов невозможна без изготовления ППРк, мы обеспечим выезд <strong>100-тонного автомобильного крана с готовым проектом производства работ</strong>, изготовленным нашей компанией в кратчайший срок. Полный цикл: проект + техника + экипаж.</p>
+      <p class="crane-detail__text" style="margin-top:12px;"><?php echo wp_kses_post( $extra_highlight ); ?></p>
     </div>
   </div>
 </section>
 
+<?php
+$steps_defaults = array(
+    array( 'Анализ', 'Изучаем проектную документацию и условия объекта' ),
+    array( 'Проектирование', 'Разрабатываем ППРк, схемы строповки и технологические карты' ),
+    array( 'Согласование', 'Согласовываем документацию с надзорными органами' ),
+    array( 'Монтаж', 'Выполняем монтаж крана за 1 день и пусконаладку' ),
+);
+$steps = array();
+for ( $i = 1; $i <= 4; $i++ ) {
+    $steps[] = array(
+        bpm_meta( 'page_step_' . $i . '_title', $steps_defaults[ $i - 1 ][0] ),
+        bpm_meta( 'page_step_' . $i . '_text', $steps_defaults[ $i - 1 ][1] ),
+    );
+}
+?>
 <!-- Этапы работы -->
 <section class="section">
   <div class="container">
     <h2 class="section-title text-center">Этапы работы</h2>
     <br>
     <div class="steps-grid">
-      <div class="step"><div class="step__number">01</div><h3 class="step__title">Анализ</h3><p class="step__text">Изучаем проектную документацию и условия объекта</p></div>
-      <div class="step"><div class="step__number">02</div><h3 class="step__title">Проектирование</h3><p class="step__text">Разрабатываем ППРк, схемы строповки и технологические карты</p></div>
-      <div class="step"><div class="step__number">03</div><h3 class="step__title">Согласование</h3><p class="step__text">Согласовываем документацию с надзорными органами</p></div>
-      <div class="step"><div class="step__number">04</div><h3 class="step__title">Монтаж</h3><p class="step__text">Выполняем монтаж крана за 1 день и пусконаладку</p></div>
+      <?php foreach ( $steps as $idx => $step ) : ?>
+      <div class="step"><div class="step__number"><?php echo str_pad( $idx + 1, 2, '0', STR_PAD_LEFT ); ?></div><h3 class="step__title"><?php echo esc_html( $step[0] ); ?></h3><p class="step__text"><?php echo esc_html( $step[1] ); ?></p></div>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
@@ -164,28 +210,34 @@ get_header(); ?>
   </div>
 </section>
 
+<?php
+$faq_defaults = array(
+    array( 'Сколько времени занимает монтаж башенного крана?', 'БПМ Альянс выполняет монтаж башенного крана (до высоты свободностоящего крана) за 1 световой день, независимо от условий площадки. Это включает пусконаладочные работы.' ),
+    array( 'Обязательно ли разрабатывать ППРк?', 'Да, ППРк (проект производства работ краном) — обязательный документ для эксплуатации башенных кранов на строительных площадках. Наши специалисты разработают его в кратчайший срок.' ),
+    array( 'Выполняете ли вы наращивание высоты крана?', 'Да, мы выполняем наращивание высоты крана с помощью монтажной обоймы и его крепление к зданию на любой высоте.' ),
+    array( 'Можно ли заказать только проектные работы без аренды крана?', 'Да, мы выполняем проектные работы как в комплексе с арендой, так и отдельно: ППРк, проектирование фундамента, схемы строповки, корректировку ПОС.' ),
+);
+$faq_items = array();
+for ( $i = 1; $i <= 6; $i++ ) {
+    $q = bpm_meta( 'page_faq_q_' . $i, isset( $faq_defaults[ $i - 1 ] ) ? $faq_defaults[ $i - 1 ][0] : '' );
+    $a = bpm_meta( 'page_faq_a_' . $i, isset( $faq_defaults[ $i - 1 ] ) ? $faq_defaults[ $i - 1 ][1] : '' );
+    if ( $q && $a ) {
+        $faq_items[] = array( $q, $a );
+    }
+}
+?>
 <!-- FAQ -->
 <section class="section">
   <div class="container">
     <h2 class="section-title">FAQ</h2>
     <br>
     <div class="faq-list">
+      <?php foreach ( $faq_items as $faq ) : ?>
       <div class="faq-item">
-        <button class="faq-item__question">Сколько времени занимает монтаж башенного крана?</button>
-        <div class="faq-item__answer"><div class="faq-item__answer-inner">БПМ Альянс выполняет монтаж башенного крана (до высоты свободностоящего крана) за 1 световой день, независимо от условий площадки. Это включает пусконаладочные работы.</div></div>
+        <button class="faq-item__question"><?php echo esc_html( $faq[0] ); ?></button>
+        <div class="faq-item__answer"><div class="faq-item__answer-inner"><?php echo esc_html( $faq[1] ); ?></div></div>
       </div>
-      <div class="faq-item">
-        <button class="faq-item__question">Обязательно ли разрабатывать ППРк?</button>
-        <div class="faq-item__answer"><div class="faq-item__answer-inner">Да, ППРк (проект производства работ краном) — обязательный документ для эксплуатации башенных кранов на строительных площадках. Наши специалисты разработают его в кратчайший срок.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-item__question">Выполняете ли вы наращивание высоты крана?</button>
-        <div class="faq-item__answer"><div class="faq-item__answer-inner">Да, мы выполняем наращивание высоты крана с помощью монтажной обоймы и его крепление к зданию на любой высоте.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-item__question">Можно ли заказать только проектные работы без аренды крана?</button>
-        <div class="faq-item__answer"><div class="faq-item__answer-inner">Да, мы выполняем проектные работы как в комплексе с арендой, так и отдельно: ППРк, проектирование фундамента, схемы строповки, корректировку ПОС.</div></div>
-      </div>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
@@ -194,6 +246,6 @@ get_header(); ?>
 <?php get_template_part( 'template-parts/contact-form' ); ?>
 
 <!-- SEO Text -->
-<section class="seo-text"><div class="container"><p><strong>Монтаж и проектирование кранов в Минске и Беларуси</strong> — полный комплекс инженерных услуг от БПМ Альянс. Монтаж башенного крана за 1 световой день, разработка ППРк, проектирование фундаментных площадок, изготовление и корректировка ПОС. Выезд 100-тонного автокрана с готовым проектом производства работ. Все необходимые лицензии и допуски.</p></div></section>
+<section class="seo-text"><div class="container"><p><?php echo wp_kses_post( bpm_meta( 'page_seo_text', '<strong>Монтаж и проектирование кранов в Минске и Беларуси</strong> — полный комплекс инженерных услуг от БПМ Альянс. Монтаж башенного крана за 1 световой день, разработка ППРк, проектирование фундаментных площадок, изготовление и корректировка ПОС. Выезд 100-тонного автокрана с готовым проектом производства работ. Все необходимые лицензии и допуски.' ) ); ?></p></div></section>
 
 <?php get_footer(); ?>

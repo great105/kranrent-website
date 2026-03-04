@@ -12,11 +12,16 @@ get_header(); ?>
   </div>
 </div>
 
+<?php
+$hero_title = bpm_meta( 'page_hero_title', 'Аренда автомобильных кранов' );
+$hero_text  = bpm_meta( 'page_hero_text', 'Автокраны от 25 до 100 тонн с опытными операторами. Быстрая подача на объект, работа по всей Беларуси.' );
+$hero_bg    = bpm_meta( 'page_hero_bg', get_template_directory_uri() . '/img/hero-bg2.jpg' );
+?>
 <!-- Page Hero -->
-<section class="page-hero" style="background-image: url('<?php echo get_template_directory_uri(); ?>/img/hero-bg2.jpg');">
+<section class="page-hero" style="background-image: url('<?php echo esc_url( $hero_bg ); ?>');">
   <div class="container">
-    <h1 class="page-hero__title">Аренда автомобильных кранов</h1>
-    <p class="page-hero__text">Автокраны от 25 до 100 тонн с опытными операторами. Быстрая подача на объект, работа по всей Беларуси.</p>
+    <h1 class="page-hero__title"><?php echo esc_html( $hero_title ); ?></h1>
+    <p class="page-hero__text"><?php echo esc_html( $hero_text ); ?></p>
     <div class="hero__buttons">
       <a href="#callback" class="btn btn--primary btn--lg">Оставить заявку</a>
       <a href="#" class="btn btn--outline-dark btn--lg" style="border-color:rgba(255,255,255,0.4);color:#fff;" data-open-modal="calcModal">Рассчитать стоимость</a>
@@ -68,6 +73,19 @@ wp_reset_postdata();
 
 <?php endif; ?>
 
+<?php
+$pricing_table_raw = get_post_meta( get_the_ID(), 'page_pricing_table', true );
+if ( $pricing_table_raw ) {
+    $pricing_rows = bpm_parse_lines( $pricing_table_raw );
+} else {
+    $pricing_rows = array(
+        '100 тонн|от 2 360 BYN|от 295 BYN',
+        '80 тонн|от 1 840 BYN|от 230 BYN',
+        '50-60 тонн|от 1 320 BYN|от 165 BYN',
+        '25 тонн|от 800 BYN|от 100 BYN',
+    );
+}
+?>
 <!-- Pricing Table -->
 <section class="section section--gray">
   <div class="container">
@@ -82,40 +100,76 @@ wp_reset_postdata();
         </tr>
       </thead>
       <tbody>
-        <tr><td>100 тонн</td><td>от 2 360 BYN</td><td>от 295 BYN</td></tr>
-        <tr><td>80 тонн</td><td>от 1 840 BYN</td><td>от 230 BYN</td></tr>
-        <tr><td>50-60 тонн</td><td>от 1 320 BYN</td><td>от 165 BYN</td></tr>
-        <tr><td>25 тонн</td><td>от 800 BYN</td><td>от 100 BYN</td></tr>
+        <?php foreach ( $pricing_rows as $row ) :
+            $cols = explode( '|', $row );
+        ?>
+        <tr>
+          <td><?php echo esc_html( trim( $cols[0] ?? '' ) ); ?></td>
+          <td><?php echo esc_html( trim( $cols[1] ?? '' ) ); ?></td>
+          <td><?php echo esc_html( trim( $cols[2] ?? '' ) ); ?></td>
+        </tr>
+        <?php endforeach; ?>
       </tbody>
     </table>
   </div>
 </section>
 
+<?php
+$pricing_intro = bpm_meta( 'page_pricing_intro', 'Стоимость аренды рассчитывается индивидуально и зависит от нескольких факторов:' );
+$pricing_factors_raw = get_post_meta( get_the_ID(), 'page_pricing_factors', true );
+if ( $pricing_factors_raw ) {
+    $pricing_factors = bpm_parse_lines( $pricing_factors_raw );
+} else {
+    $pricing_factors = array(
+        'Модель и грузоподъемность|Чем выше параметры крана, тем выше стоимость',
+        'Срок аренды|При долгосрочной аренде действуют скидки',
+        'Монтаж и демонтаж|Зависит от сложности и высоты установки',
+        'Удаленность объекта|Учитывается стоимость доставки',
+    );
+}
+?>
 <!-- Pricing Factors -->
 <section class="section">
   <div class="container">
     <div class="pricing-factors">
-      <p class="pricing-factors__title">Стоимость аренды рассчитывается индивидуально и зависит от нескольких факторов:</p>
+      <p class="pricing-factors__title"><?php echo esc_html( $pricing_intro ); ?></p>
       <div class="pricing-factors__grid">
-        <div class="pricing-factor"><span class="pricing-factor__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></span><div><div class="pricing-factor__title">Модель и грузоподъемность</div><div class="pricing-factor__text">Чем выше параметры крана, тем выше стоимость</div></div></div>
-        <div class="pricing-factor"><span class="pricing-factor__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></span><div><div class="pricing-factor__title">Срок аренды</div><div class="pricing-factor__text">При долгосрочной аренде действуют скидки</div></div></div>
-        <div class="pricing-factor"><span class="pricing-factor__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></span><div><div class="pricing-factor__title">Монтаж и демонтаж</div><div class="pricing-factor__text">Зависит от сложности и высоты установки</div></div></div>
-        <div class="pricing-factor"><span class="pricing-factor__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></span><div><div class="pricing-factor__title">Удаленность объекта</div><div class="pricing-factor__text">Учитывается стоимость доставки</div></div></div>
+        <?php foreach ( $pricing_factors as $factor ) :
+            $parts = explode( '|', $factor );
+            $f_title = trim( $parts[0] );
+            $f_text  = isset( $parts[1] ) ? trim( $parts[1] ) : '';
+        ?>
+        <div class="pricing-factor"><span class="pricing-factor__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></span><div><div class="pricing-factor__title"><?php echo esc_html( $f_title ); ?></div><?php if ( $f_text ) : ?><div class="pricing-factor__text"><?php echo esc_html( $f_text ); ?></div><?php endif; ?></div></div>
+        <?php endforeach; ?>
       </div>
     </div>
   </div>
 </section>
 
+<?php
+$steps_defaults = array(
+    array( 'Заявка', 'Вы оставляете заявку на сайте или звоните нам' ),
+    array( 'Консультация', 'Наш специалист поможет подобрать оптимальное решение' ),
+    array( 'Расчет', 'Рассчитываем стоимость и согласовываем условия' ),
+    array( 'Работа', 'Доставляем технику и выполняем работы в срок' ),
+);
+$steps = array();
+for ( $i = 1; $i <= 4; $i++ ) {
+    $steps[] = array(
+        bpm_meta( 'page_step_' . $i . '_title', $steps_defaults[ $i - 1 ][0] ),
+        bpm_meta( 'page_step_' . $i . '_text', $steps_defaults[ $i - 1 ][1] ),
+    );
+}
+?>
 <!-- How We Work -->
 <section class="section section--gray">
   <div class="container">
     <h2 class="section-title text-center">Как мы работаем</h2>
     <br>
     <div class="steps-grid">
-      <div class="step"><div class="step__number">01</div><h3 class="step__title">Заявка</h3><p class="step__text">Вы оставляете заявку на сайте или звоните нам</p></div>
-      <div class="step"><div class="step__number">02</div><h3 class="step__title">Консультация</h3><p class="step__text">Наш специалист поможет подобрать оптимальное решение</p></div>
-      <div class="step"><div class="step__number">03</div><h3 class="step__title">Расчет</h3><p class="step__text">Рассчитываем стоимость и согласовываем условия</p></div>
-      <div class="step"><div class="step__number">04</div><h3 class="step__title">Работа</h3><p class="step__text">Доставляем технику и выполняем работы в срок</p></div>
+      <?php foreach ( $steps as $idx => $step ) : ?>
+      <div class="step"><div class="step__number"><?php echo str_pad( $idx + 1, 2, '0', STR_PAD_LEFT ); ?></div><h3 class="step__title"><?php echo esc_html( $step[0] ); ?></h3><p class="step__text"><?php echo esc_html( $step[1] ); ?></p></div>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
@@ -146,6 +200,24 @@ wp_reset_postdata();
   </div>
 </section>
 
+<?php
+$req_col1_title = bpm_meta( 'page_req_col1_title', 'Подготовка площадки:' );
+$req_col1_raw   = get_post_meta( get_the_ID(), 'page_req_col1_items', true );
+$req_col1_items = $req_col1_raw ? bpm_parse_lines( $req_col1_raw ) : array(
+    'Площадка должна быть относительно ровной',
+    'Грунт с несущей способностью от 1 кг/см²',
+    'Свободное пространство для маневрирования',
+    'Подъезд для трала с техникой',
+);
+$req_col2_title = bpm_meta( 'page_req_col2_title', 'Безопасность:' );
+$req_col2_raw   = get_post_meta( get_the_ID(), 'page_req_col2_items', true );
+$req_col2_items = $req_col2_raw ? bpm_parse_lines( $req_col2_raw ) : array(
+    'Отсутствие ЛЭП в зоне работы',
+    'Ограждение опасной зоны',
+    'ППР и схемы строповки',
+    'Наличие сигнальщика',
+);
+?>
 <!-- Requirements -->
 <section class="section section--gray">
   <div class="container">
@@ -153,49 +225,53 @@ wp_reset_postdata();
     <br>
     <div class="two-col-info">
       <div class="two-col-info__col">
-        <h3 class="two-col-info__title">Подготовка площадки:</h3>
+        <h3 class="two-col-info__title"><?php echo esc_html( $req_col1_title ); ?></h3>
         <ul class="two-col-info__list">
-          <li>Площадка должна быть относительно ровной</li>
-          <li>Грунт с несущей способностью от 1 кг/см&sup2;</li>
-          <li>Свободное пространство для маневрирования</li>
-          <li>Подъезд для трала с техникой</li>
+          <?php foreach ( $req_col1_items as $item ) : ?>
+          <li><?php echo esc_html( $item ); ?></li>
+          <?php endforeach; ?>
         </ul>
       </div>
       <div class="two-col-info__col">
-        <h3 class="two-col-info__title">Безопасность:</h3>
+        <h3 class="two-col-info__title"><?php echo esc_html( $req_col2_title ); ?></h3>
         <ul class="two-col-info__list">
-          <li>Отсутствие ЛЭП в зоне работы</li>
-          <li>Ограждение опасной зоны</li>
-          <li>ППР и схемы строповки</li>
-          <li>Наличие сигнальщика</li>
+          <?php foreach ( $req_col2_items as $item ) : ?>
+          <li><?php echo esc_html( $item ); ?></li>
+          <?php endforeach; ?>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
+<?php
+$faq_defaults = array(
+    array( 'Как выбрать автокран нужной грузоподъемности?', 'Выбор зависит от массы груза, высоты подъема и вылета стрелы. Наши специалисты бесплатно помогут подобрать оптимальную технику.' ),
+    array( 'Какова минимальная продолжительность аренды автокрана?', 'Минимальная продолжительность — 1 смена (8 часов). При заказе от 3 смен действуют скидки.' ),
+    array( 'Нужно ли готовить площадку для работы автокрана?', 'Да, площадка должна быть ровной с достаточной несущей способностью. Необходимо пространство для выдвижения аутригеров.' ),
+    array( 'Можно ли заказать автокран срочно?', 'Да, при наличии свободной техники подача возможна в течение 1-2 часов по Минску.' ),
+);
+$faq_items = array();
+for ( $i = 1; $i <= 6; $i++ ) {
+    $q = bpm_meta( 'page_faq_q_' . $i, isset( $faq_defaults[ $i - 1 ] ) ? $faq_defaults[ $i - 1 ][0] : '' );
+    $a = bpm_meta( 'page_faq_a_' . $i, isset( $faq_defaults[ $i - 1 ] ) ? $faq_defaults[ $i - 1 ][1] : '' );
+    if ( $q && $a ) {
+        $faq_items[] = array( $q, $a );
+    }
+}
+?>
 <!-- FAQ -->
 <section class="section">
   <div class="container">
     <h2 class="section-title">FAQ</h2>
     <br>
     <div class="faq-list">
+      <?php foreach ( $faq_items as $faq ) : ?>
       <div class="faq-item">
-        <button class="faq-item__question">Как выбрать автокран нужной грузоподъемности?</button>
-        <div class="faq-item__answer"><div class="faq-item__answer-inner">Выбор зависит от массы груза, высоты подъема и вылета стрелы. Наши специалисты бесплатно помогут подобрать оптимальную технику.</div></div>
+        <button class="faq-item__question"><?php echo esc_html( $faq[0] ); ?></button>
+        <div class="faq-item__answer"><div class="faq-item__answer-inner"><?php echo esc_html( $faq[1] ); ?></div></div>
       </div>
-      <div class="faq-item">
-        <button class="faq-item__question">Какова минимальная продолжительность аренды автокрана?</button>
-        <div class="faq-item__answer"><div class="faq-item__answer-inner">Минимальная продолжительность — 1 смена (8 часов). При заказе от 3 смен действуют скидки.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-item__question">Нужно ли готовить площадку для работы автокрана?</button>
-        <div class="faq-item__answer"><div class="faq-item__answer-inner">Да, площадка должна быть ровной с достаточной несущей способностью. Необходимо пространство для выдвижения аутригеров.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-item__question">Можно ли заказать автокран срочно?</button>
-        <div class="faq-item__answer"><div class="faq-item__answer-inner">Да, при наличии свободной техники подача возможна в течение 1-2 часов по Минску.</div></div>
-      </div>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
@@ -206,7 +282,7 @@ wp_reset_postdata();
 <!-- SEO Text -->
 <section class="seo-text">
   <div class="container">
-    <p><strong>Аренда автомобильных кранов</strong> — самый востребованный вид услуг в сфере грузоподъемных работ. Автокраны сочетают мобильность, универсальность и экономичность, что делает их незаменимыми для большинства строительных и монтажных задач. Наша компания предлагает современный парк автокранов грузоподъемностью от 25 до 100 тонн с опытными операторами и полным пакетом документов.</p>
+    <p><?php echo wp_kses_post( bpm_meta( 'page_seo_text', '<strong>Аренда автомобильных кранов</strong> — самый востребованный вид услуг в сфере грузоподъемных работ. Автокраны сочетают мобильность, универсальность и экономичность, что делает их незаменимыми для большинства строительных и монтажных задач. Наша компания предлагает современный парк автокранов грузоподъемностью от 25 до 100 тонн с опытными операторами и полным пакетом документов.' ) ); ?></p>
   </div>
 </section>
 

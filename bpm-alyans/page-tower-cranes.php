@@ -6,11 +6,16 @@ get_header(); ?>
 
 <div class="breadcrumbs"><div class="container"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Главная</a><span>&gt;</span><a href="#">Услуги</a><span>&gt;</span>Аренда башенных кранов</div></div>
 
+<?php
+$hero_title = bpm_meta( 'page_hero_title', 'Аренда башенных кранов' );
+$hero_text  = bpm_meta( 'page_hero_text', 'Башенные краны различной грузоподъемности для строительства многоэтажных жилых и коммерческих объектов. Полный комплекс услуг: монтаж, обслуживание, демонтаж.' );
+$hero_bg    = bpm_meta( 'page_hero_bg', get_template_directory_uri() . '/img/hero-bg2.jpg' );
+?>
 <!-- Page Hero -->
-<section class="page-hero" style="background-image: url('<?php echo get_template_directory_uri(); ?>/img/hero-bg2.jpg');">
+<section class="page-hero" style="background-image: url('<?php echo esc_url( $hero_bg ); ?>');">
   <div class="container">
-    <h1 class="page-hero__title">Аренда башенных кранов</h1>
-    <p class="page-hero__text">Башенные краны различной грузоподъемности для строительства многоэтажных жилых и коммерческих объектов. Полный комплекс услуг: монтаж, обслуживание, демонтаж.</p>
+    <h1 class="page-hero__title"><?php echo esc_html( $hero_title ); ?></h1>
+    <p class="page-hero__text"><?php echo esc_html( $hero_text ); ?></p>
     <div class="hero__buttons">
       <a href="#callback" class="btn btn--primary btn--lg">Оставить заявку</a>
       <a href="#" class="btn btn--outline-dark btn--lg" style="border-color:rgba(255,255,255,0.4);color:#fff;" data-open-modal="calcModal">Рассчитать стоимость</a>
@@ -62,52 +67,98 @@ wp_reset_postdata();
 
 <?php endif; ?>
 
+<?php
+$pricing_intro_default = 'Стоимость аренды рассчитывается индивидуально и зависит от нескольких факторов:';
+$pricing_intro = bpm_meta( 'page_pricing_intro', $pricing_intro_default );
+$pricing_factors_raw = get_post_meta( get_the_ID(), 'page_pricing_factors', true );
+if ( $pricing_factors_raw ) {
+    $pricing_factors = bpm_parse_lines( $pricing_factors_raw );
+} else {
+    $pricing_factors = array(
+        'Модель и грузоподъемность|Чем выше параметры крана, тем выше стоимость',
+        'Срок аренды|При долгосрочной аренде действуют скидки',
+        'Монтаж и демонтаж|Зависит от сложности и высоты установки',
+        'Удаленность объекта|Учитывается стоимость доставки',
+    );
+}
+$price_amount = bpm_meta( 'page_price_amount', 'от 15 000 BYN/мес' );
+$price_note   = bpm_meta( 'page_price_note', '+ монтаж/демонтаж' );
+?>
 <!-- Price -->
 <section class="section section--gray">
   <div class="container">
     <h2 class="section-title">Стоимость аренды</h2>
     <br>
     <div class="pricing-factors">
-      <p class="pricing-factors__title">Стоимость аренды рассчитывается индивидуально и зависит от нескольких факторов:</p>
+      <p class="pricing-factors__title"><?php echo esc_html( $pricing_intro ); ?></p>
       <div class="pricing-factors__grid">
-        <div class="pricing-factor"><span class="pricing-factor__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></span><div><div class="pricing-factor__title">Модель и грузоподъемность</div><div class="pricing-factor__text">Чем выше параметры крана, тем выше стоимость</div></div></div>
-        <div class="pricing-factor"><span class="pricing-factor__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></span><div><div class="pricing-factor__title">Срок аренды</div><div class="pricing-factor__text">При долгосрочной аренде действуют скидки</div></div></div>
-        <div class="pricing-factor"><span class="pricing-factor__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></span><div><div class="pricing-factor__title">Монтаж и демонтаж</div><div class="pricing-factor__text">Зависит от сложности и высоты установки</div></div></div>
-        <div class="pricing-factor"><span class="pricing-factor__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></span><div><div class="pricing-factor__title">Удаленность объекта</div><div class="pricing-factor__text">Учитывается стоимость доставки</div></div></div>
+        <?php foreach ( $pricing_factors as $factor ) :
+            $parts = explode( '|', $factor );
+            $f_title = trim( $parts[0] );
+            $f_text  = isset( $parts[1] ) ? trim( $parts[1] ) : '';
+        ?>
+        <div class="pricing-factor"><span class="pricing-factor__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></span><div><div class="pricing-factor__title"><?php echo esc_html( $f_title ); ?></div><?php if ( $f_text ) : ?><div class="pricing-factor__text"><?php echo esc_html( $f_text ); ?></div><?php endif; ?></div></div>
+        <?php endforeach; ?>
       </div>
     </div>
     <div class="price-highlight">
-      <span class="price-highlight__amount">от 15 000 BYN/мес</span>
-      <span class="price-highlight__note">+ монтаж/демонтаж</span>
+      <span class="price-highlight__amount"><?php echo esc_html( $price_amount ); ?></span>
+      <span class="price-highlight__note"><?php echo esc_html( $price_note ); ?></span>
     </div>
   </div>
 </section>
 
+<?php
+$conditions_raw = get_post_meta( get_the_ID(), 'page_conditions', true );
+if ( $conditions_raw ) {
+    $conditions = bpm_parse_lines( $conditions_raw );
+} else {
+    $conditions = array(
+        'Минимальный срок аренды — 1 месяц',
+        'В стоимость входит: кран, оператор, обслуживание',
+        'Монтаж и демонтаж оплачивается отдельно',
+        'Требуется подготовленная площадка с фундаментом',
+        'Необходимо энергоснабжение на объекте',
+    );
+}
+?>
 <!-- Conditions -->
 <section class="section">
   <div class="container">
     <h2 class="section-title">Условия аренды</h2>
     <br>
     <ul class="conditions-list">
-      <li>Минимальный срок аренды — 1 месяц</li>
-      <li>В стоимость входит: кран, оператор, обслуживание</li>
-      <li>Монтаж и демонтаж оплачивается отдельно</li>
-      <li>Требуется подготовленная площадка с фундаментом</li>
-      <li>Необходимо энергоснабжение на объекте</li>
+      <?php foreach ( $conditions as $item ) : ?>
+      <li><?php echo esc_html( $item ); ?></li>
+      <?php endforeach; ?>
     </ul>
   </div>
 </section>
 
+<?php
+$steps_defaults = array(
+    array( 'Заявка', 'Вы оставляете заявку на сайте или звоните нам' ),
+    array( 'Консультация', 'Наш специалист поможет подобрать оптимальное решение' ),
+    array( 'Расчет', 'Рассчитываем стоимость и согласовываем условия' ),
+    array( 'Работа', 'Выполняем монтаж крана и запускаем в эксплуатацию' ),
+);
+$steps = array();
+for ( $i = 1; $i <= 4; $i++ ) {
+    $steps[] = array(
+        bpm_meta( 'page_step_' . $i . '_title', $steps_defaults[ $i - 1 ][0] ),
+        bpm_meta( 'page_step_' . $i . '_text', $steps_defaults[ $i - 1 ][1] ),
+    );
+}
+?>
 <!-- How We Work -->
 <section class="section section--gray">
   <div class="container">
     <h2 class="section-title text-center">Как мы работаем</h2>
     <br>
     <div class="steps-grid">
-      <div class="step"><div class="step__number">01</div><h3 class="step__title">Заявка</h3><p class="step__text">Вы оставляете заявку на сайте или звоните нам</p></div>
-      <div class="step"><div class="step__number">02</div><h3 class="step__title">Консультация</h3><p class="step__text">Наш специалист поможет подобрать оптимальное решение</p></div>
-      <div class="step"><div class="step__number">03</div><h3 class="step__title">Расчет</h3><p class="step__text">Рассчитываем стоимость и согласовываем условия</p></div>
-      <div class="step"><div class="step__number">04</div><h3 class="step__title">Работа</h3><p class="step__text">Выполняем монтаж крана и запускаем в эксплуатацию</p></div>
+      <?php foreach ( $steps as $idx => $step ) : ?>
+      <div class="step"><div class="step__number"><?php echo str_pad( $idx + 1, 2, '0', STR_PAD_LEFT ); ?></div><h3 class="step__title"><?php echo esc_html( $step[0] ); ?></h3><p class="step__text"><?php echo esc_html( $step[1] ); ?></p></div>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
@@ -138,6 +189,24 @@ wp_reset_postdata();
   </div>
 </section>
 
+<?php
+$req_col1_title = bpm_meta( 'page_req_col1_title', 'Подготовка площадки:' );
+$req_col1_raw   = get_post_meta( get_the_ID(), 'page_req_col1_items', true );
+$req_col1_items = $req_col1_raw ? bpm_parse_lines( $req_col1_raw ) : array(
+    'Подготовленный фундамент под башенный кран',
+    'Грунт с несущей способностью от 2 кг/см²',
+    'Свободное пространство для монтажа',
+    'Подъезд для трала с секциями крана',
+);
+$req_col2_title = bpm_meta( 'page_req_col2_title', 'Безопасность:' );
+$req_col2_raw   = get_post_meta( get_the_ID(), 'page_req_col2_items', true );
+$req_col2_items = $req_col2_raw ? bpm_parse_lines( $req_col2_raw ) : array(
+    'Отсутствие ЛЭП в зоне работы',
+    'Ограждение опасной зоны',
+    'Энергоснабжение (380В) на объекте',
+    'ППР и схемы строповки',
+);
+?>
 <!-- Requirements -->
 <section class="section section--gray">
   <div class="container">
@@ -145,49 +214,53 @@ wp_reset_postdata();
     <br>
     <div class="two-col-info">
       <div class="two-col-info__col">
-        <h3 class="two-col-info__title">Подготовка площадки:</h3>
+        <h3 class="two-col-info__title"><?php echo esc_html( $req_col1_title ); ?></h3>
         <ul class="two-col-info__list">
-          <li>Подготовленный фундамент под башенный кран</li>
-          <li>Грунт с несущей способностью от 2 кг/см&sup2;</li>
-          <li>Свободное пространство для монтажа</li>
-          <li>Подъезд для трала с секциями крана</li>
+          <?php foreach ( $req_col1_items as $item ) : ?>
+          <li><?php echo esc_html( $item ); ?></li>
+          <?php endforeach; ?>
         </ul>
       </div>
       <div class="two-col-info__col">
-        <h3 class="two-col-info__title">Безопасность:</h3>
+        <h3 class="two-col-info__title"><?php echo esc_html( $req_col2_title ); ?></h3>
         <ul class="two-col-info__list">
-          <li>Отсутствие ЛЭП в зоне работы</li>
-          <li>Ограждение опасной зоны</li>
-          <li>Энергоснабжение (380В) на объекте</li>
-          <li>ППР и схемы строповки</li>
+          <?php foreach ( $req_col2_items as $item ) : ?>
+          <li><?php echo esc_html( $item ); ?></li>
+          <?php endforeach; ?>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
+<?php
+$faq_defaults = array(
+    array( 'Какой минимальный срок аренды башенного крана?', 'Минимальный срок аренды башенного крана — 1 месяц. При долгосрочной аренде от 3 месяцев действуют скидки.' ),
+    array( 'Что входит в стоимость аренды?', 'В стоимость входит: сам кран, оператор, техническое обслуживание. Монтаж, демонтаж и доставка оплачиваются отдельно.' ),
+    array( 'Сколько времени занимает монтаж башенного крана?', 'Монтаж башенного крана занимает от 1 до 3 дней в зависимости от модели и высоты установки. Предварительно необходимо подготовить фундамент.' ),
+    array( 'Какие требования к электроснабжению?', 'Для работы башенного крана необходимо электропитание 380В. Мощность зависит от модели крана — от 30 до 60 кВт.' ),
+);
+$faq_items = array();
+for ( $i = 1; $i <= 6; $i++ ) {
+    $q = bpm_meta( 'page_faq_q_' . $i, isset( $faq_defaults[ $i - 1 ] ) ? $faq_defaults[ $i - 1 ][0] : '' );
+    $a = bpm_meta( 'page_faq_a_' . $i, isset( $faq_defaults[ $i - 1 ] ) ? $faq_defaults[ $i - 1 ][1] : '' );
+    if ( $q && $a ) {
+        $faq_items[] = array( $q, $a );
+    }
+}
+?>
 <!-- FAQ -->
 <section class="section">
   <div class="container">
     <h2 class="section-title">FAQ</h2>
     <br>
     <div class="faq-list">
+      <?php foreach ( $faq_items as $faq ) : ?>
       <div class="faq-item">
-        <button class="faq-item__question">Какой минимальный срок аренды башенного крана?</button>
-        <div class="faq-item__answer"><div class="faq-item__answer-inner">Минимальный срок аренды башенного крана — 1 месяц. При долгосрочной аренде от 3 месяцев действуют скидки.</div></div>
+        <button class="faq-item__question"><?php echo esc_html( $faq[0] ); ?></button>
+        <div class="faq-item__answer"><div class="faq-item__answer-inner"><?php echo esc_html( $faq[1] ); ?></div></div>
       </div>
-      <div class="faq-item">
-        <button class="faq-item__question">Что входит в стоимость аренды?</button>
-        <div class="faq-item__answer"><div class="faq-item__answer-inner">В стоимость входит: сам кран, оператор, техническое обслуживание. Монтаж, демонтаж и доставка оплачиваются отдельно.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-item__question">Сколько времени занимает монтаж башенного крана?</button>
-        <div class="faq-item__answer"><div class="faq-item__answer-inner">Монтаж башенного крана занимает от 1 до 3 дней в зависимости от модели и высоты установки. Предварительно необходимо подготовить фундамент.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-item__question">Какие требования к электроснабжению?</button>
-        <div class="faq-item__answer"><div class="faq-item__answer-inner">Для работы башенного крана необходимо электропитание 380В. Мощность зависит от модели крана — от 30 до 60 кВт.</div></div>
-      </div>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
@@ -196,6 +269,6 @@ wp_reset_postdata();
 <?php get_template_part( 'template-parts/contact-form' ); ?>
 
 <!-- SEO Text -->
-<section class="seo-text"><div class="container"><p><strong>Аренда башенных кранов в Минске и по всей Беларуси</strong> — востребованная услуга для строительства многоэтажных жилых и коммерческих объектов. Предоставляем в аренду башенные краны Raimondi MRT 180 и новый Zoomlion WA 6013-8 грузоподъемностью до 10 тонн, вылет стрелы до 60 м, высота подъема до 100 м. Полный комплекс услуг: монтаж, техническое обслуживание, демонтаж. Техника с экипажем, все необходимые лицензии и допуски.</p></div></section>
+<section class="seo-text"><div class="container"><p><?php echo wp_kses_post( bpm_meta( 'page_seo_text', '<strong>Аренда башенных кранов в Минске и по всей Беларуси</strong> — востребованная услуга для строительства многоэтажных жилых и коммерческих объектов. Предоставляем в аренду башенные краны Raimondi MRT 180 и новый Zoomlion WA 6013-8 грузоподъемностью до 10 тонн, вылет стрелы до 60 м, высота подъема до 100 м. Полный комплекс услуг: монтаж, техническое обслуживание, демонтаж. Техника с экипажем, все необходимые лицензии и допуски.' ) ); ?></p></div></section>
 
 <?php get_footer(); ?>
