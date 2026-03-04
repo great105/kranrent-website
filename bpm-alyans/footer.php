@@ -61,6 +61,49 @@
   </div>
 </footer>
 
+<!-- Modal: Рассчитать стоимость -->
+<div class="modal-overlay" id="calcModal">
+  <div class="modal">
+    <button class="modal__close" id="calcModalClose">&times;</button>
+    <h2 class="modal__title">Рассчитать стоимость</h2>
+    <p class="modal__subtitle">Заполните форму и мы свяжемся с вами для расчёта</p>
+    <?php
+    if ( shortcode_exists( 'contact-form-7' ) ) {
+        echo do_shortcode( '[contact-form-7 id="123" title="Заявка с сайта"]' );
+    } else {
+    ?>
+    <form id="modalForm">
+      <div class="modal__fields">
+        <div class="form-group">
+          <label class="form-label">Имя *</label>
+          <input type="text" class="form-input" placeholder="Ваше имя" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Телефон *</label>
+          <input type="tel" class="form-input" placeholder="+375 (44) 584-10-91" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Интересующая услуга</label>
+          <select class="form-select">
+            <option value="">Выберите услугу</option>
+            <option>Аренда башенного крана</option>
+            <option>Аренда автомобильного крана</option>
+            <option>Аренда гусеничного крана</option>
+            <option>Монтаж и проектирование</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Комментарий</label>
+          <textarea class="form-input" rows="3" placeholder="Опишите задачу или груз"></textarea>
+        </div>
+        <button type="submit" class="btn btn--primary btn--lg btn--full">Отправить</button>
+        <p class="form-note">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
+      </div>
+    </form>
+    <?php } ?>
+  </div>
+</div>
+
 <?php wp_footer(); ?>
 </body>
 </html>

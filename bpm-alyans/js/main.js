@@ -67,6 +67,44 @@ document.addEventListener('click', function(e) {
   });
 });
 
+// Modal: Рассчитать стоимость
+document.querySelectorAll('[data-open-modal]').forEach(function(btn) {
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    var modalId = btn.getAttribute('data-open-modal');
+    var modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    // Close mobile nav if open
+    if (mobileNav && mobileNav.classList.contains('active')) closeMobileNav();
+  });
+});
+
+function closeModal(modal) {
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.modal__close').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    closeModal(btn.closest('.modal-overlay'));
+  });
+});
+
+document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeModal(overlay);
+  });
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.active').forEach(closeModal);
+  }
+});
+
 // CF7: Pre-select service dropdown based on page body class
 document.addEventListener('DOMContentLoaded', function() {
   var select = document.querySelector('.wpcf7 select[name="service"]');
