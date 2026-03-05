@@ -3,6 +3,26 @@
  * БПМ Альянс Theme Functions
  */
 
+// === Restrict Editor role: no export, no import, no theme/plugin editing ===
+add_action( 'admin_init', function() {
+    $role = get_role( 'editor' );
+    if ( $role ) {
+        $role->remove_cap( 'export' );
+        $role->remove_cap( 'import' );
+    }
+});
+
+// Hide Theme/Plugin Editor & Export/Import menus from non-admins
+add_action( 'admin_menu', function() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        remove_menu_page( 'tools.php' );
+        remove_menu_page( 'themes.php' );
+        remove_menu_page( 'plugins.php' );
+        remove_menu_page( 'options-general.php' );
+        remove_menu_page( 'users.php' );
+    }
+}, 999 );
+
 // === Theme Setup ===
 function bpm_theme_setup() {
     add_theme_support( 'title-tag' );
