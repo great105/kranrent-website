@@ -35,7 +35,7 @@ Tags: crane-rental, corporate, one-page, custom-logo
   --transition: 0.3s ease;
 }
 
-html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+html { scroll-padding-top: 80px; }
 
 /* ===== RESET ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }

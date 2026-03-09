@@ -144,6 +144,72 @@ document.addEventListener('keydown', function(e) {
   });
 })();
 
+// Smooth scroll to anchors with dynamic header offset
+(function() {
+  var EXTRA_GAP = 16; // extra px below header
+
+  function getHeaderHeight() {
+    var h = document.querySelector('.header');
+    return h ? h.offsetHeight : 0;
+  }
+
+  function smoothScrollTo(target) {
+    var targetTop = target.getBoundingClientRect().top + window.pageYOffset;
+    var offset = getHeaderHeight() + EXTRA_GAP;
+    window.scrollTo({ top: targetTop - offset, behavior: 'smooth' });
+    // Correction pass — lazy images may shift layout during scroll
+    setTimeout(function() {
+      var correctedTop = target.getBoundingClientRect().top + window.pageYOffset;
+      var correctedPos = correctedTop - offset;
+      if (Math.abs(window.pageYOffset - correctedPos) > 5) {
+        window.scrollTo({ top: correctedPos, behavior: 'smooth' });
+      }
+    }, 600);
+  }
+
+  // Handle clicks on anchor links
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('a[href*="#"]');
+    if (!link) return;
+    // Skip modal openers and lightbox links
+    if (link.hasAttribute('data-open-modal') || link.hasAttribute('data-lightbox')) return;
+
+    var href = link.getAttribute('href');
+    if (!href) return;
+
+    // Extract hash part
+    var hashIndex = href.indexOf('#');
+    if (hashIndex === -1) return;
+    var hash = href.substring(hashIndex);
+    if (hash === '#' || hash === '') return;
+
+    // For cross-page links (href has path before #), let browser navigate
+    var beforeHash = href.substring(0, hashIndex);
+    if (beforeHash && beforeHash !== window.location.pathname && beforeHash !== '.') return;
+
+    var target = document.querySelector(hash);
+    if (!target) return;
+
+    e.preventDefault();
+    smoothScrollTo(target);
+    // Update URL hash without jumping
+    if (history.pushState) history.pushState(null, null, hash);
+  });
+
+  // Handle hash on page load (e.g. /tower-cranes/#detail-wa6013)
+  if (window.location.hash) {
+    // Wait for DOM and images to settle a bit
+    window.addEventListener('load', function() {
+      var target = document.querySelector(window.location.hash);
+      if (target) {
+        // Prevent native jump, then scroll correctly
+        window.scrollTo(0, 0);
+        setTimeout(function() { smoothScrollTo(target); }, 100);
+      }
+    });
+  }
+})();
+
 // CF7: Pre-select service dropdown based on page body class
 document.addEventListener('DOMContentLoaded', function() {
   var select = document.querySelector('.wpcf7 select[name="service"]');

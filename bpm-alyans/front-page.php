@@ -43,7 +43,7 @@ $hero_bg    = bpm_meta( 'page_hero_bg', get_template_directory_uri() . '/img/her
                   $capacity = get_post_meta( get_the_ID(), 'crane_capacity', true );
                   $boom     = get_post_meta( get_the_ID(), 'crane_boom', true );
                   $is_new   = get_post_meta( get_the_ID(), 'crane_is_new', true );
-                  $link     = home_url( $type_info['page'] . ( $anchor ? '#' . $anchor : '' ) );
+                  $link     = home_url( $type_info['page'] . ( $anchor ? '#detail-' . $anchor : '' ) );
                   $label    = get_the_title();
                   if ( $is_new === '1' ) $label .= ' (новый)';
                   if ( $capacity ) $label .= ' — ' . $capacity;
