@@ -792,10 +792,38 @@ function bpm_sitemap_template() {
         echo '<url><loc>' . esc_url( get_permalink( $post ) ) . '</loc><lastmod>' . $mod . '</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>' . "\n";
     }
 
+    // Crane posts
+    $cranes = get_posts( array(
+        'post_type'   => 'crane',
+        'post_status' => 'publish',
+        'numberposts' => -1,
+    ) );
+    foreach ( $cranes as $post ) {
+        $mod = get_the_modified_date( 'Y-m-d', $post );
+        echo '<url><loc>' . esc_url( get_permalink( $post ) ) . '</loc><lastmod>' . $mod . '</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>' . "\n";
+    }
+
     echo '</urlset>';
     exit;
 }
 add_action( 'template_redirect', 'bpm_sitemap_template' );
+
+// === Remove legacy static robots.txt & sitemap.xml (one-time cleanup) ===
+function bpm_cleanup_legacy_files() {
+    $root = ABSPATH;
+    $removed = false;
+    foreach ( array( 'robots.txt', 'sitemap.xml' ) as $file ) {
+        $path = $root . $file;
+        if ( file_exists( $path ) && ! is_dir( $path ) ) {
+            @unlink( $path );
+            $removed = true;
+        }
+    }
+    if ( $removed ) {
+        flush_rewrite_rules();
+    }
+}
+add_action( 'admin_init', 'bpm_cleanup_legacy_files' );
 
 // === Robots.txt — add sitemap ===
 function bpm_robots_txt( $output, $public ) {
