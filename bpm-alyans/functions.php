@@ -3,6 +3,16 @@
  * БПМ Альянс Theme Functions
  */
 
+// === Fix site name if it's still default "My blog" ===
+add_action( 'init', function() {
+    if ( get_option( 'blogname' ) === 'My blog' || get_option( 'blogname' ) === '' ) {
+        update_option( 'blogname', 'БПМ Альянс — Аренда и эксплуатация кранов' );
+    }
+    if ( get_option( 'blogdescription' ) === 'Just another WordPress site' || get_option( 'blogdescription' ) === '' ) {
+        update_option( 'blogdescription', 'Аренда башенных, автомобильных и гусеничных кранов в Минске' );
+    }
+});
+
 // === Restrict Editor role: no export, no import, no theme/plugin editing ===
 add_action( 'admin_init', function() {
     $role = get_role( 'editor' );

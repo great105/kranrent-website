@@ -210,6 +210,38 @@ document.addEventListener('keydown', function(e) {
   }
 })();
 
+// CF7: Toast notification on successful submission
+(function() {
+  var toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML =
+    '<svg class="toast__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
+    '<span>Заявка отправлена! Мы перезвоним Вам в течение получаса</span>' +
+    '<button class="toast__close" aria-label="Закрыть">&times;</button>';
+  document.body.appendChild(toast);
+
+  var hideTimer;
+
+  function showToast() {
+    clearTimeout(hideTimer);
+    toast.classList.add('active');
+    hideTimer = setTimeout(function() { toast.classList.remove('active'); }, 6000);
+  }
+
+  toast.querySelector('.toast__close').addEventListener('click', function() {
+    clearTimeout(hideTimer);
+    toast.classList.remove('active');
+  });
+
+  // CF7 success event
+  document.addEventListener('wpcf7mailsent', function() {
+    showToast();
+    // Close modal if form was inside one
+    var activeModal = document.querySelector('.modal-overlay.active');
+    if (activeModal) closeModal(activeModal);
+  });
+})();
+
 // CF7: Pre-select service dropdown based on page body class
 document.addEventListener('DOMContentLoaded', function() {
   var select = document.querySelector('.wpcf7 select[name="service"]');

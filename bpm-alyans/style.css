@@ -472,6 +472,10 @@ html.admin-bar { scroll-padding-top: 112px; }
   border-radius: var(--radius) !important;
   font-size: 14px;
 }
+.wpcf7-mail-sent-ok,
+.wpcf7 form.sent .wpcf7-response-output {
+  display: none !important;
+}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
@@ -582,3 +586,46 @@ html.admin-bar { scroll-padding-top: 112px; }
   .modal { padding: 24px 20px; border-radius: 12px; }
   .modal__title { font-size: 20px; }
 }
+
+/* === Toast Notification === */
+.toast {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 18px 24px;
+  background: #1a7e3c;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  transform: translateY(-100%);
+  transition: transform 0.4s ease;
+}
+.toast.active {
+  transform: translateY(0);
+}
+.toast__icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+.toast__close {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  opacity: 0.8;
+  line-height: 1;
+}
+.toast__close:hover { opacity: 1; }
